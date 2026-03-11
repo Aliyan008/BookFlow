@@ -1,0 +1,12 @@
+@import "tailwindcss";
+
+/* Global layout and typography overrides */
+html,
+body,
+#root {
+  height: 100%;
+}
+
+body {
+  @apply bg-[#F9FAFB] text-[#1E1E1E] antialiased;
+}
