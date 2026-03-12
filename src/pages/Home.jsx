@@ -1,479 +1,337 @@
-import { useState, useEffect } from 'react'
+import { motion } from 'framer-motion'
 import { Button } from '../components/Button'
 import { NavLink } from 'react-router-dom'
-import dashboardImage from '../assets/dashboard.jpeg'
-import dashboard2Image from '../assets/dashboard2.jpeg'
-import realtimeLocationImage from '../assets/realtime_location.jpeg'
-import attendanceImage from '../assets/attendance_page.jpeg'
-import ordersImage from '../assets/orders_page.jpeg'
-import ordersTableImage from '../assets/orders_table.jpeg'
-import monthlyTargetsImage from '../assets/monthly_targets.jpeg'
-import stockManagementImage from '../assets/stock_management.jpeg'
-import stockEntryImage from '../assets/stock_entry.jpeg'
-import dailyReportImage from '../assets/daily_report.jpeg'
-import userReportImage from '../assets/user_report.jpeg'
-import shopsImage from '../assets/shops.jpeg'
 
-const features = [
+const featureCards = [
   {
     title: 'GPS Attendance',
-    description:
-      'Accurate, location-verified check-ins for order bookers as they start their day in market.',
+    description: 'See who actually checked in from the market, not the sofa.',
   },
   {
     title: 'Order Booking',
-    description:
-      'Capture retail orders in seconds with ready-made product lists, pricing, and promotions.',
+    description: 'Fast, structured order capture built for traditional trade.',
   },
   {
     title: 'Distributor Management',
-    description:
-      'Sync orders directly with distributors, avoid stockouts, and reduce dispatch errors.',
+    description: 'Sync orders with distributors and keep stock and sales aligned.',
   },
   {
     title: 'Daily Reports',
-    description:
-      'Live dashboards for visits, coverage, orders, and value—no more chasing WhatsApp updates.',
+    description: 'Automatic end-of-day summaries for visits, orders, and value.',
   },
   {
     title: 'Leave Management',
-    description:
-      'Simple leave requests and approvals so managers always know who is active in the field.',
+    description: 'Simple leave requests and approvals that stay in sync with attendance.',
   },
 ]
 
 const steps = [
   {
     step: '01',
-    title: 'Start day with GPS attendance',
-    description:
-      'Order booker checks in from market location using GPS-locked attendance on the mobile app.',
+    title: 'Start with GPS attendance',
+    description: 'Order booker checks in from the field and their day begins.',
   },
   {
     step: '02',
     title: 'Visit assigned shops',
-    description:
-      'Order booker visits the assigned outlets on their beat and captures orders directly in the app.',
+    description: 'Each rep follows their beat plan and hits the right outlets.',
   },
   {
     step: '03',
-    title: 'Book orders in-store',
-    description:
-      'Capture product-wise orders, schemes, and discounts in a few taps, directly on the handset.',
+    title: 'Book orders in seconds',
+    description: 'Ready-made product lists, pricing and schemes on one screen.',
   },
   {
     step: '04',
-    title: 'Instant distributor sync',
-    description:
-      'Orders are sent to the connected distributor so stock can be reserved and prepared on time.',
+    title: 'Sync with distributors',
+    description: 'Orders are shared so stock can be reserved and dispatched on time.',
   },
   {
     step: '05',
-    title: 'Managers track live performance',
-    description:
-      'Sales managers and principals view real-time coverage, productivity, and sales from web dashboards.',
+    title: 'Review live performance',
+    description: 'Managers see visits, coverage and orders for the day in one view.',
   },
 ]
 
-const productScreens = [
+const personas = [
   {
-    title: 'Sales performance dashboard',
-    description: 'Track total sales, execution and brand performance in one view.',
-    image: dashboardImage,
+    title: 'For Field Reps',
+    bullets: [
+      'Offline order booking that just works.',
+      'Beat-wise shop lists and history.',
+      'Clear daily targets and progress.',
+    ],
   },
   {
-    title: 'Live attendance & productivity',
-    description: 'See who checked in, how many hours they worked and current status.',
-    image: attendanceImage,
+    title: 'For Sales Managers',
+    bullets: [
+      'Live view of who is in field.',
+      'Coverage and productivity by beat.',
+      'Clean, exportable daily reports.',
+    ],
   },
   {
-    title: 'Orders & execution progress',
-    description: 'Monitor executed, pending and cancelled orders in real time.',
-    image: ordersImage,
-  },
-  {
-    title: 'Real-time field locations',
-    description: 'View your team on the map with live coordinates and last update time.',
-    image: realtimeLocationImage,
-  },
-  {
-    title: 'Analytics & trends',
-    description: 'Brand performance, province-wise sales and daily booking vs execution.',
-    image: dashboard2Image,
-  },
-  {
-    title: 'Monthly targets by zone',
-    description: 'Set and manage targets by product and geography with CSV import.',
-    image: monthlyTargetsImage,
-  },
-  {
-    title: 'Stock management',
-    description: 'Current stock by distributor, SKU and brand with low-stock alerts.',
-    image: stockManagementImage,
-  },
-  {
-    title: 'Admin stock entry',
-    description: 'Add or adjust opening stock and track change history by distributor.',
-    image: stockEntryImage,
-  },
-  {
-    title: 'Orders data',
-    description: 'Filter and export orders by shop, distributor, date and status.',
-    image: ordersTableImage,
-  },
-  {
-    title: 'Daily report',
-    description: 'Shop visits and productivity by user, designation and date.',
-    image: dailyReportImage,
-  },
-  {
-    title: 'HR user report',
-    description: 'Attendance, working hours and sales breakdown per employee.',
-    image: userReportImage,
-  },
-  {
-    title: 'Shops report',
-    description: 'Total and productive shops by type, sector and distributor.',
-    image: shopsImage,
+    title: 'For Distributors',
+    bullets: [
+      'Orders tied to real inventory.',
+      'Simple sales and stock visibility.',
+      'Less manual reconciliation.',
+    ],
   },
 ]
+
+const fadeUp = (delay = 0) => ({
+  initial: { opacity: 0, y: 24 },
+  whileInView: { opacity: 1, y: 0 },
+  transition: { duration: 0.6, ease: 'easeOut', delay },
+  viewport: { once: true, amount: 0.2 },
+})
 
 export function Home() {
-  const [lightboxIndex, setLightboxIndex] = useState(null)
-
-  useEffect(() => {
-    const onKeyDown = (e) => {
-      if (e.key === 'Escape') {
-        setLightboxIndex(null)
-        return
-      }
-      if (lightboxIndex == null) return
-      if (e.key === 'ArrowLeft') {
-        setLightboxIndex((i) => (i <= 0 ? productScreens.length - 1 : i - 1))
-      }
-      if (e.key === 'ArrowRight') {
-        setLightboxIndex((i) => (i >= productScreens.length - 1 ? 0 : i + 1))
-      }
+  const scrollToHowItWorks = () => {
+    const el = document.getElementById('how-it-works')
+    if (el) {
+      el.scrollIntoView({ behavior: 'smooth', block: 'start' })
     }
-    window.addEventListener('keydown', onKeyDown)
-    return () => window.removeEventListener('keydown', onKeyDown)
-  }, [lightboxIndex])
-
-  useEffect(() => {
-    if (lightboxIndex != null) {
-      document.body.style.overflow = 'hidden'
-    } else {
-      document.body.style.overflow = ''
-    }
-    return () => {
-      document.body.style.overflow = ''
-    }
-  }, [lightboxIndex])
+  }
 
   return (
-    <div className="flex min-h-[calc(100vh-4rem-4rem)] flex-col bg-[#F9FAFB]">
+    <div className="flex min-h-[calc(100vh-4rem-4rem)] flex-col bg-white text-[#0a0a0a]">
       {/* Hero */}
-      <section className="border-b border-neutral-200 bg-white">
-        <div className="mx-auto flex max-w-6xl flex-col gap-10 px-4 py-14 sm:px-6 sm:py-20 lg:flex-row lg:items-center lg:justify-between lg:px-8">
-          <div className="max-w-xl space-y-6">
-            <p className="inline-flex items-center gap-2 rounded-full bg-[#E5EDF3] px-3 py-1 text-xs font-medium text-[#344955] ring-1 ring-[#C3D3E0]">
-              Built for FMCG & distribution teams in Pakistan
+      <section className="border-b border-neutral-200 bg-gradient-to-b from-[#F9FAFF] via-white to-white">
+        <div className="mx-auto flex min-h-[calc(100vh-4rem-4rem)] max-w-6xl flex-col gap-12 px-4 py-14 sm:px-6 sm:py-20 lg:flex-row lg:items-center lg:justify-between lg:gap-16 lg:px-8">
+          <motion.div
+            className="max-w-xl space-y-7"
+            {...fadeUp(0)}
+          >
+            <p className="inline-flex items-center gap-2 rounded-full bg-indigo-50 px-3 py-1 text-xs font-medium text-indigo-700 ring-1 ring-indigo-100">
+              Built for FMCG & distribution teams
             </p>
-            <h1 className="text-3xl font-semibold tracking-tight text-neutral-900 sm:text-4xl lg:text-5xl">
-              Field Sales & Order Booking, Done Right.
+            <h1 className="text-4xl font-semibold tracking-tight text-[#050816] sm:text-5xl lg:text-[2.9rem]">
+              Field Sales, Simplified.
             </h1>
             <p className="text-sm leading-relaxed text-neutral-700 sm:text-base">
-              OrderBooker is a mobile-first field sales management platform
-              that helps order bookers, sales managers, and distributors work
-              in sync—so every visit, every order, and every rupee is tracked.
+              GPS attendance, order booking, distributor management and daily
+              reporting — all in one app that works even offline.
             </p>
             <div className="flex flex-wrap items-center gap-4">
               <Button as={NavLink} to="/contact">
                 Request a Demo
               </Button>
-              <Button as={NavLink} to="/about" variant="secondary">
-                Learn More
+              <Button
+                variant="ghost"
+                type="button"
+                onClick={scrollToHowItWorks}
+                className="border border-neutral-200 bg-white/60 hover:bg-neutral-50"
+              >
+                See How It Works
               </Button>
             </div>
             <p className="text-xs text-neutral-500">
               Trusted by distribution and FMCG teams to digitize field
               operations across Pakistan.
             </p>
-          </div>
+          </motion.div>
 
-          <div className="w-full max-w-md rounded-2xl bg-gradient-to-br from-[#232F34] via-[#344955] to-[#232F34] p-5 text-white shadow-lg shadow-[#1F2933]/40">
-            <p className="mb-4 text-xs font-semibold uppercase tracking-[0.14em] text-neutral-100">
-              Live visibility for every stakeholder
-            </p>
-            <div className="space-y-3 text-sm">
-              <div className="flex items-center justify-between rounded-xl bg-black/20 px-4 py-3">
-                <div>
-                  <p className="text-xs text-neutral-100">Order Bookers</p>
-                  <p className="text-sm font-semibold text-white">
-                    152 in field today
-                  </p>
-                </div>
-                <span className="rounded-full bg-white/10 px-3 py-1 text-xs font-semibold text-white">
-                  89% active today
-                </span>
-              </div>
-              <div className="flex items-center justify-between rounded-xl bg-black/10 px-4 py-3">
-                <div>
-                  <p className="text-xs text-neutral-100">Total orders today</p>
-                  <p className="text-lg font-semibold text-white">3,482</p>
-                </div>
-                <div className="text-right text-xs text-neutral-100/80">
-                  <p>+18% vs last week</p>
-                </div>
-              </div>
-              <div className="grid grid-cols-2 gap-3 text-xs">
-                <div className="rounded-xl bg-black/10 p-3">
-                  <p className="mb-1 text-neutral-100">Coverage</p>
-                  <p className="text-lg font-semibold text-white">93%</p>
-                </div>
-                <div className="rounded-xl bg-black/10 p-3">
-                  <p className="mb-1 text-neutral-100">Distributor fill-rate</p>
-                  <p className="text-lg font-semibold text-white">97%</p>
-                </div>
-              </div>
-              <p className="text-[11px] text-neutral-100/90">
-                Get a single source of truth for your field teams, routes,
-                orders, and distributors—live, every day.
-              </p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Features */}
-      <section className="border-b border-neutral-200 bg-white">
-        <div className="mx-auto max-w-6xl px-4 py-10 sm:px-6 sm:py-14 lg:px-8">
-          <div className="mb-6 flex flex-col gap-3 sm:mb-8 sm:flex-row sm:items-end sm:justify-between">
-            <div>
-              <h2 className="text-2xl font-semibold tracking-tight text-neutral-900 sm:text-3xl">
-                See OrderBooker in action.
-              </h2>
-              <p className="mt-2 max-w-xl text-sm text-neutral-600">
-                Scroll through live screens from the web console to understand how your team and data come together.
-              </p>
-            </div>
-          </div>
-        </div>
-
-        <div className="relative w-full">
-          <div className="pointer-events-none absolute inset-y-0 left-0 z-10 w-12 bg-gradient-to-r from-white to-transparent" />
-          <div className="pointer-events-none absolute inset-y-0 right-0 z-10 w-12 bg-gradient-to-l from-white to-transparent" />
-
-          <div
-            className="scrollbar-hide flex snap-x snap-mandatory gap-4 overflow-x-auto overflow-y-hidden px-4 pb-2 sm:gap-5 sm:px-6"
-            style={{ WebkitOverflowScrolling: 'touch' }}
+          <motion.div
+            className="relative flex w-full justify-center lg:justify-end"
+            initial={{ opacity: 0, y: 32 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, ease: 'easeOut', delay: 0.1 }}
           >
-            {productScreens.map((screen, index) => (
-              <figure
-                key={screen.title}
-                role="button"
-                tabIndex={0}
-                onClick={() => setLightboxIndex(index)}
-                onKeyDown={(e) => {
-                  if (e.key === 'Enter' || e.key === ' ') {
-                    e.preventDefault()
-                    setLightboxIndex(index)
-                  }
-                }}
-                className="group relative flex min-w-0 cursor-pointer flex-[0_0_calc(50%-0.5rem)] snap-center rounded-xl border border-neutral-200 bg-white shadow-sm transition-transform duration-300 hover:-translate-y-0.5 hover:shadow-lg sm:flex-[0_0_calc(33.333%-0.75rem)] lg:flex-[0_0_calc(25%-0.75rem)]"
-              >
-                  <div className="relative flex w-full flex-col overflow-hidden rounded-xl">
-                    <div className="relative aspect-[4/3] w-full overflow-hidden bg-neutral-100">
-                      <img
-                        src={screen.image}
-                        alt={screen.title}
-                        className="h-full w-full object-contain transition-transform duration-500 ease-out group-hover:scale-[1.02]"
-                      />
-                      <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/85 via-black/40 to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100">
-                        <div className="absolute inset-x-0 bottom-0 p-4">
-                          <p className="text-[10px] font-semibold uppercase tracking-wider text-neutral-300">
-                            Product screen
-                          </p>
-                          <h3 className="mt-1 text-sm font-semibold text-white">
-                            {screen.title}
-                          </h3>
-                          <p className="mt-1 text-xs leading-relaxed text-neutral-200">
-                            {screen.description}
-                          </p>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </figure>
-              ))}
-          </div>
-        </div>
-
-        {/* Lightbox */}
-        {lightboxIndex != null && (
-          <div
-            className="fixed inset-0 z-50 flex items-center justify-center bg-black/85 p-4"
-            onClick={() => setLightboxIndex(null)}
-            role="dialog"
-            aria-modal="true"
-            aria-label="Product screen preview"
-          >
-            <div
-              className="relative flex max-h-[90vh] max-w-4xl flex-col items-center"
-              onClick={(e) => e.stopPropagation()}
+            <div className="pointer-events-none absolute inset-0 -z-10 translate-y-6 bg-[radial-gradient(circle_at_top,_rgba(99,102,241,0.18),_transparent_55%)]" />
+            <motion.div
+              className="relative w-full max-w-xs rounded-[2rem] border border-white/60 bg-gradient-to-b from-white via-white to-neutral-50 p-3 shadow-[0_18px_60px_rgba(15,23,42,0.15)]"
+              animate={{ y: [0, -8, 0] }}
+              transition={{ duration: 6, repeat: Infinity, ease: 'easeInOut' }}
             >
-              <button
-                type="button"
-                onClick={() => setLightboxIndex(null)}
-                className="absolute -top-10 right-0 rounded-full p-2 text-white/90 transition hover:bg-white/10 hover:text-white"
-                aria-label="Close"
-              >
-                <svg className="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-                </svg>
-              </button>
-
-              <div className="flex max-h-[75vh] w-full items-center justify-center overflow-hidden rounded-lg bg-neutral-900">
-                <img
-                  src={productScreens[lightboxIndex].image}
-                  alt={productScreens[lightboxIndex].title}
-                  className="max-h-[75vh] w-full object-contain"
-                />
+              <div className="mx-auto mb-3 h-1.5 w-14 rounded-full bg-neutral-200" />
+              <div className="space-y-3 rounded-[1.5rem] bg-neutral-950 px-4 py-4 text-xs text-white">
+                <div className="flex items-center justify-between">
+                  <span className="text-[11px] uppercase tracking-[0.18em] text-neutral-400">
+                    Today
+                  </span>
+                  <span className="rounded-full bg-emerald-500/10 px-2 py-0.5 text-[11px] font-medium text-emerald-300">
+                    Live
+                  </span>
+                </div>
+                <div className="grid grid-cols-3 gap-3 text-[11px]">
+                  <div className="rounded-xl bg-white/5 p-3">
+                    <p className="text-neutral-400">Bookers in field</p>
+                    <p className="mt-1 text-lg font-semibold">152</p>
+                  </div>
+                  <div className="rounded-xl bg-white/5 p-3">
+                    <p className="text-neutral-400">Orders booked</p>
+                    <p className="mt-1 text-lg font-semibold">3,482</p>
+                  </div>
+                  <div className="rounded-xl bg-white/5 p-3">
+                    <p className="text-neutral-400">Coverage</p>
+                    <p className="mt-1 text-lg font-semibold">93%</p>
+                  </div>
+                </div>
+                <div className="space-y-2 rounded-xl bg-white/5 p-3">
+                  <p className="text-[11px] text-neutral-300">
+                    Next 30 minutes
+                  </p>
+                  <div className="flex items-center justify-between text-[11px]">
+                    <span>Beat Sahiwal-02</span>
+                    <span className="text-neutral-400">6 shops left</span>
+                  </div>
+                  <div className="h-1.5 overflow-hidden rounded-full bg-neutral-800">
+                    <div className="h-full w-2/3 rounded-full bg-indigo-400" />
+                  </div>
+                </div>
               </div>
-              <div className="mt-4 w-full max-w-2xl text-center">
-                <h3 className="text-lg font-semibold text-white">
-                  {productScreens[lightboxIndex].title}
-                </h3>
-                <p className="mt-1 text-sm text-neutral-300">
-                  {productScreens[lightboxIndex].description}
-                </p>
-              </div>
-              <div className="mt-4 flex items-center gap-4">
-                <button
-                  type="button"
-                  onClick={(e) => {
-                    e.stopPropagation()
-                    setLightboxIndex((i) => (i <= 0 ? productScreens.length - 1 : i - 1))
-                  }}
-                  className="rounded-full p-2 text-white/90 transition hover:bg-white/10 hover:text-white"
-                  aria-label="Previous image"
-                >
-                  <svg className="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
-                  </svg>
-                </button>
-                <span className="text-sm text-neutral-400">
-                  {lightboxIndex + 1} / {productScreens.length}
-                </span>
-                <button
-                  type="button"
-                  onClick={(e) => {
-                    e.stopPropagation()
-                    setLightboxIndex((i) => (i >= productScreens.length - 1 ? 0 : i + 1))
-                  }}
-                  className="rounded-full p-2 text-white/90 transition hover:bg-white/10 hover:text-white"
-                  aria-label="Next image"
-                >
-                  <svg className="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                  </svg>
-                </button>
-              </div>
-            </div>
-          </div>
-        )}
+            </motion.div>
+          </motion.div>
+        </div>
       </section>
 
       {/* Features */}
-      <section className="border-b border-neutral-200 bg-white">
-        <div className="mx-auto max-w-6xl px-4 py-12 sm:px-6 sm:py-16 lg:px-8">
-          <div className="mb-8 flex flex-col gap-3 sm:mb-10 sm:flex-row sm:items-end sm:justify-between">
-            <div>
-              <h2 className="text-2xl font-semibold tracking-tight text-neutral-900 sm:text-3xl">
-                Everything your field sales needs in one app.
-              </h2>
-              <p className="mt-2 max-w-2xl text-sm text-neutral-600">
-                OrderBooker is built for order bookers, sales managers, and
-                distributors—so every part of your offline route-to-market is
-                covered.
-              </p>
-            </div>
-          </div>
+      <section id="features" className="border-b border-neutral-200 bg-white">
+        <div className="mx-auto max-w-6xl px-4 py-14 sm:px-6 sm:py-16 lg:px-8">
+          <motion.div
+            className="mb-10 max-w-2xl"
+            {...fadeUp(0)}
+          >
+            <h2 className="text-2xl font-semibold tracking-tight text-neutral-900 sm:text-3xl">
+              Everything your field team needs.
+            </h2>
+            <p className="mt-3 text-sm text-neutral-600">
+              OrderBooker keeps order bookers, sales managers and distributors
+              on the same page — without extra spreadsheets or WhatsApp groups.
+            </p>
+          </motion.div>
 
-          <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-            {features.map((feature) => (
-              <div
+          <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-5">
+            {featureCards.map((feature, idx) => (
+              <motion.article
                 key={feature.title}
-                className="flex flex-col justify-between rounded-2xl border border-neutral-200 bg-white p-5 shadow-sm shadow-neutral-100 transition hover:-translate-y-0.5 hover:shadow-md"
+                className="flex h-full flex-col rounded-2xl border border-neutral-200 bg-white p-5 shadow-sm shadow-neutral-100 transition hover:shadow-lg"
+                {...fadeUp(0.05 * idx)}
               >
-                <div>
-                  <h3 className="text-sm font-semibold text-neutral-900">
-                    {feature.title}
-                  </h3>
-                  <p className="mt-2 text-xs leading-relaxed text-neutral-600">
-                    {feature.description}
-                  </p>
+                <div className="mb-4 inline-flex h-9 w-9 items-center justify-center rounded-xl bg-indigo-50 text-indigo-600">
+                  <span className="text-xs font-semibold">
+                    {String(idx + 1).padStart(2, '0')}
+                  </span>
                 </div>
-              </div>
+                <h3 className="text-sm font-semibold text-neutral-900">
+                  {feature.title}
+                </h3>
+                <p className="mt-2 text-xs leading-relaxed text-neutral-600">
+                  {feature.description}
+                </p>
+              </motion.article>
             ))}
           </div>
         </div>
       </section>
 
-      {/* How it works timeline */}
-      <section className="border-b border-neutral-200 bg-white">
-        <div className="mx-auto max-w-6xl px-4 py-12 sm:px-6 sm:py-16 lg:px-8">
-          <div className="mb-8 max-w-2xl">
+      {/* How it works */}
+      <section
+        id="how-it-works"
+        className="border-b border-neutral-200 bg-[#F9FAFB]"
+      >
+        <div className="mx-auto max-w-6xl px-4 py-14 sm:px-6 sm:py-16 lg:px-8">
+          <motion.div
+            className="mb-10 max-w-2xl"
+            {...fadeUp(0)}
+          >
             <h2 className="text-2xl font-semibold tracking-tight text-neutral-900 sm:text-3xl">
-              How a day on OrderBooker works.
+              How it works for an order booker.
             </h2>
-            <p className="mt-2 text-sm text-neutral-600">
-              From GPS attendance to distributor dispatch—see how your field
-              team’s workday flows inside OrderBooker.
+            <p className="mt-3 text-sm text-neutral-600">
+              A simple day-in-the-life flow that keeps visits, orders and
+              dispatch tightly connected.
             </p>
-          </div>
+          </motion.div>
 
-          <ol className="space-y-6 border-l border-neutral-300 pl-4 sm:space-y-8 sm:pl-6">
-            {steps.map((item, idx) => (
-              <li key={item.step} className="relative pl-4 sm:pl-6">
-                <div className="absolute -left-[9px] top-1.5 flex h-4 w-4 items-center justify-center rounded-full border-2 border-[#344955] bg-white" />
-                <span className="text-xs font-semibold uppercase tracking-[0.18em] text-[#344955]">
-                  {item.step}
-                </span>
-                <h3 className="mt-1 text-sm font-semibold text-neutral-900">
-                  {item.title}
+          <motion.ol
+            className="grid gap-6 md:grid-cols-5"
+            {...fadeUp(0.05)}
+          >
+            {steps.map((step) => (
+              <li key={step.step} className="relative">
+                <div className="mb-3 inline-flex h-8 w-8 items-center justify-center rounded-full bg-indigo-600 text-xs font-semibold text-white">
+                  {step.step}
+                </div>
+                <h3 className="text-sm font-semibold text-neutral-900">
+                  {step.title}
                 </h3>
-                <p className="mt-1 text-xs leading-relaxed text-neutral-600">
-                  {item.description}
+                <p className="mt-2 text-xs leading-relaxed text-neutral-600">
+                  {step.description}
                 </p>
               </li>
             ))}
-          </ol>
+          </motion.ol>
+        </div>
+      </section>
+
+      {/* Personas */}
+      <section className="border-b border-neutral-200 bg-white">
+        <div className="mx-auto max-w-6xl px-4 py-14 sm:px-6 sm:py-16 lg:px-8">
+          <motion.div
+            className="mb-10 max-w-2xl"
+            {...fadeUp(0)}
+          >
+            <h2 className="text-2xl font-semibold tracking-tight text-neutral-900 sm:text-3xl">
+              Built for every role in the route-to-market.
+            </h2>
+            <p className="mt-3 text-sm text-neutral-600">
+              OrderBooker aligns incentives for reps, managers and distributors
+              instead of forcing everyone into one generic tool.
+            </p>
+          </motion.div>
+
+          <div className="grid gap-6 md:grid-cols-3">
+            {personas.map((persona, idx) => (
+              <motion.article
+                key={persona.title}
+                className="flex h-full flex-col rounded-2xl border border-neutral-200 bg-white p-6 shadow-sm shadow-neutral-100 transition hover:shadow-lg"
+                {...fadeUp(0.05 * idx)}
+              >
+                <h3 className="text-sm font-semibold text-neutral-900">
+                  {persona.title}
+                </h3>
+                <ul className="mt-3 space-y-2 text-xs text-neutral-600">
+                  {persona.bullets.map((item) => (
+                    <li key={item} className="flex items-start gap-2">
+                      <span className="mt-[2px] h-1.5 w-1.5 rounded-full bg-indigo-500" />
+                      <span>{item}</span>
+                    </li>
+                  ))}
+                </ul>
+              </motion.article>
+            ))}
+          </div>
         </div>
       </section>
 
       {/* Final CTA */}
-      <section className="bg-[#232F34] text-white">
-        <div className="mx-auto max-w-6xl px-4 py-10 sm:px-6 sm:py-14 lg:px-8">
-          <div className="flex flex-col items-start gap-6 sm:flex-row sm:items-center sm:justify-between">
+      <section className="bg-neutral-950 text-white">
+        <div className="mx-auto max-w-6xl px-4 py-14 sm:px-6 sm:py-16 lg:px-8">
+          <motion.div
+            className="flex flex-col items-start gap-6 sm:flex-row sm:items-center sm:justify-between"
+            {...fadeUp(0)}
+          >
             <div>
               <h2 className="text-2xl font-semibold tracking-tight sm:text-3xl">
-                Ready to bring your order bookers online?
+                Ready to transform your field sales?
               </h2>
-              <p className="mt-2 max-w-xl text-sm text-neutral-200">
-                See how OrderBooker can digitize your field operations in under
-                4 weeks—from pilot to full rollout across your distributors.
+              <p className="mt-3 max-w-xl text-sm text-neutral-300">
+                Book a short call to see how OrderBooker can roll out across
+                your distributors in weeks, not months.
               </p>
             </div>
             <div className="flex flex-wrap items-center gap-3">
               <Button as={NavLink} to="/contact">
-                Request a Demo
+                Get in Touch
               </Button>
-              <Button as={NavLink} to="/about" variant="secondary">
-                Learn about OrderBooker
+              <Button as={NavLink} to="/features" variant="secondary">
+                Explore Features
               </Button>
             </div>
-          </div>
+          </motion.div>
         </div>
       </section>
     </div>
