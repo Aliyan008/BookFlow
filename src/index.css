@@ -10,3 +10,12 @@ body,
 body {
   @apply bg-[#F9FAFB] text-[#1E1E1E] antialiased;
 }
+
+/* Hide scrollbar but keep scroll behavior */
+.scrollbar-hide {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
