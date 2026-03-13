@@ -9,7 +9,7 @@ export function Navbar() {
   const [isMobileOpen, setIsMobileOpen] = useState(false)
 
   return (
-    <header className="relative z-40 bg-[#F9FAFB]/90 backdrop-blur">
+    <header className="sticky top-0 z-40 bg-white/80 shadow-sm backdrop-blur">
       <div className="mx-auto max-w-6xl px-4 py-3 sm:px-6 lg:px-8">
         {/* Desktop layout */}
         <div className="hidden items-center justify-between md:flex">
@@ -35,7 +35,7 @@ export function Navbar() {
               className={({ isActive }) =>
                 `${navLinkClasses} ${
                   isActive
-                    ? 'text-[#344955] font-semibold underline underline-offset-8 decoration-[#344955]/80'
+                    ? 'text-[#6366f1] font-semibold underline underline-offset-8 decoration-[#6366f1]/80'
                     : ''
                 }`
               }
@@ -47,7 +47,7 @@ export function Navbar() {
               className={({ isActive }) =>
                 `${navLinkClasses} ${
                   isActive
-                    ? 'text-[#344955] font-semibold underline underline-offset-8 decoration-[#344955]/80'
+                    ? 'text-[#6366f1] font-semibold underline underline-offset-8 decoration-[#6366f1]/80'
                     : ''
                 }`
               }
@@ -59,7 +59,7 @@ export function Navbar() {
               className={({ isActive }) =>
                 `${navLinkClasses} ${
                   isActive
-                    ? 'text-[#344955] font-semibold underline underline-offset-8 decoration-[#344955]/80'
+                    ? 'text-[#6366f1] font-semibold underline underline-offset-8 decoration-[#6366f1]/80'
                     : ''
                 }`
               }
@@ -71,7 +71,7 @@ export function Navbar() {
               className={({ isActive }) =>
                 `${navLinkClasses} ${
                   isActive
-                    ? 'text-[#344955] font-semibold underline underline-offset-8 decoration-[#344955]/80'
+                    ? 'text-[#6366f1] font-semibold underline underline-offset-8 decoration-[#6366f1]/80'
                     : ''
                 }`
               }
@@ -92,7 +92,7 @@ export function Navbar() {
           <button
             type="button"
             onClick={() => setIsMobileOpen((open) => !open)}
-            className="inline-flex items-center justify-center rounded-md p-2 text-neutral-700 hover:bg-neutral-100 hover:text-neutral-900 focus:outline-none focus:ring-2 focus:ring-[#344955]"
+            className="inline-flex items-center justify-center rounded-md p-2 text-neutral-700 hover:bg-neutral-100 hover:text-neutral-900 focus:outline-none focus:ring-2 focus:ring-[#6366f1]"
             aria-label="Toggle navigation"
           >
             <svg
@@ -143,7 +143,7 @@ export function Navbar() {
                   className={({ isActive }) =>
                     `flex items-center justify-between rounded-xl px-3 py-2 text-sm ${
                       isActive
-                        ? 'bg-[#344955] text-white shadow-sm'
+                        ? 'bg-[#6366f1] text-white shadow-sm'
                         : 'text-neutral-800 hover:bg-neutral-50'
                     }`
                   }
@@ -156,7 +156,7 @@ export function Navbar() {
                   className={({ isActive }) =>
                     `flex items-center justify-between rounded-xl px-3 py-2 text-sm ${
                       isActive
-                        ? 'bg-[#344955] text-white shadow-sm'
+                        ? 'bg-[#6366f1] text-white shadow-sm'
                         : 'text-neutral-800 hover:bg-neutral-50'
                     }`
                   }
@@ -169,7 +169,7 @@ export function Navbar() {
                   className={({ isActive }) =>
                     `flex items-center justify-between rounded-xl px-3 py-2 text-sm ${
                       isActive
-                        ? 'bg-[#344955] text-white shadow-sm'
+                        ? 'bg-[#6366f1] text-white shadow-sm'
                         : 'text-neutral-800 hover:bg-neutral-50'
                     }`
                   }
@@ -182,7 +182,7 @@ export function Navbar() {
                   className={({ isActive }) =>
                     `flex items-center justify-between rounded-xl px-3 py-2 text-sm ${
                       isActive
-                        ? 'bg-[#344955] text-white shadow-sm'
+                        ? 'bg-[#6366f1] text-white shadow-sm'
                         : 'text-neutral-800 hover:bg-neutral-50'
                     }`
                   }

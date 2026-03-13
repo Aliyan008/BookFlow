@@ -1,6 +1,13 @@
+import { useState, useEffect } from 'react'
 import { motion } from 'framer-motion'
 import { Button } from '../components/Button'
 import { NavLink } from 'react-router-dom'
+import heroDashboard from '../assets/dashboard.jpeg'
+import attendanceImage from '../assets/attendance_page.jpeg'
+import ordersImage from '../assets/orders_page.jpeg'
+import stockManagementImage from '../assets/stock_management.jpeg'
+import dailyReportImage from '../assets/daily_report.jpeg'
+import realtimeLocationImage from '../assets/realtime_location.jpeg'
 
 const featureCards = [
   {
@@ -87,13 +94,82 @@ const fadeUp = (delay = 0) => ({
   viewport: { once: true, amount: 0.2 },
 })
 
+const stats = [
+  { label: 'Orders booked daily', value: '500+' },
+  { label: 'User roles', value: '3' },
+  { label: 'Offline ready', value: '100%' },
+  { label: 'GPS tracking', value: 'Real-time' },
+]
+
+const showcaseFeatures = [
+  {
+    key: 'gps',
+    title: 'GPS Attendance',
+    description:
+      'See exactly who checked in from the field, not the office. Attendance is tied to real locations so “present” actually means in market.',
+    image: realtimeLocationImage,
+    badge: 'Field presence',
+  },
+  {
+    key: 'orders',
+    title: 'Order Booking',
+    description:
+      'Give order bookers a fast, structured way to capture orders with products, pricing and schemes in one view—online or offline.',
+    image: ordersImage,
+    badge: 'Revenue',
+  },
+  {
+    key: 'distributors',
+    title: 'Distributor Management',
+    description:
+      'Share orders with distributors in time for dispatch, keep stock and sales aligned and reduce manual back-and-forth.',
+    image: stockManagementImage,
+    badge: 'Execution',
+  },
+  {
+    key: 'reports',
+    title: 'Daily Reports',
+    description:
+      'Automatic end-of-day summaries for visits, productive shops and sales so managers don’t chase screenshots or WhatsApp updates.',
+    image: dailyReportImage,
+    badge: 'Visibility',
+  },
+  {
+    key: 'leave',
+    title: 'Leave Management',
+    description:
+      'Simple leave requests and approvals, kept in sync with attendance so you never mark someone both “on leave” and “present.”',
+    image: attendanceImage,
+    badge: 'HR clarity',
+  },
+]
+
 export function Home() {
+  const [activeShowcase, setActiveShowcase] = useState(showcaseFeatures[0].key)
+
   const scrollToHowItWorks = () => {
     const el = document.getElementById('how-it-works')
     if (el) {
       el.scrollIntoView({ behavior: 'smooth', block: 'start' })
     }
   }
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setActiveShowcase((prev) => {
+        const currentIndex = showcaseFeatures.findIndex(
+          (feature) => feature.key === prev,
+        )
+        const nextIndex =
+          currentIndex === -1 || currentIndex === showcaseFeatures.length - 1
+            ? 0
+            : currentIndex + 1
+        return showcaseFeatures[nextIndex].key
+      })
+    }, 4000)
+
+    return () => clearInterval(interval)
+  }, [])
 
   return (
     <div className="flex min-h-[calc(100vh-4rem-4rem)] flex-col bg-white text-[#0a0a0a]">
@@ -141,53 +217,140 @@ export function Home() {
           >
             <div className="pointer-events-none absolute inset-0 -z-10 translate-y-6 bg-[radial-gradient(circle_at_top,_rgba(99,102,241,0.18),_transparent_55%)]" />
             <motion.div
-              className="relative w-full max-w-xs rounded-[2rem] border border-white/60 bg-gradient-to-b from-white via-white to-neutral-50 p-3 shadow-[0_18px_60px_rgba(15,23,42,0.15)]"
+              className="relative w-full max-w-lg rounded-[2rem] border border-white/60 bg-gradient-to-b from-white via-white to-neutral-50 p-3 shadow-[0_18px_60px_rgba(15,23,42,0.15)]"
               animate={{ y: [0, -8, 0] }}
               transition={{ duration: 6, repeat: Infinity, ease: 'easeInOut' }}
             >
-              <div className="mx-auto mb-3 h-1.5 w-14 rounded-full bg-neutral-200" />
-              <div className="space-y-3 rounded-[1.5rem] bg-neutral-950 px-4 py-4 text-xs text-white">
-                <div className="flex items-center justify-between">
-                  <span className="text-[11px] uppercase tracking-[0.18em] text-neutral-400">
-                    Today
-                  </span>
-                  <span className="rounded-full bg-emerald-500/10 px-2 py-0.5 text-[11px] font-medium text-emerald-300">
-                    Live
-                  </span>
-                </div>
-                <div className="grid grid-cols-3 gap-3 text-[11px]">
-                  <div className="rounded-xl bg-white/5 p-3">
-                    <p className="text-neutral-400">Bookers in field</p>
-                    <p className="mt-1 text-lg font-semibold">152</p>
-                  </div>
-                  <div className="rounded-xl bg-white/5 p-3">
-                    <p className="text-neutral-400">Orders booked</p>
-                    <p className="mt-1 text-lg font-semibold">3,482</p>
-                  </div>
-                  <div className="rounded-xl bg-white/5 p-3">
-                    <p className="text-neutral-400">Coverage</p>
-                    <p className="mt-1 text-lg font-semibold">93%</p>
-                  </div>
-                </div>
-                <div className="space-y-2 rounded-xl bg-white/5 p-3">
-                  <p className="text-[11px] text-neutral-300">
-                    Next 30 minutes
-                  </p>
-                  <div className="flex items-center justify-between text-[11px]">
-                    <span>Beat Sahiwal-02</span>
-                    <span className="text-neutral-400">6 shops left</span>
-                  </div>
-                  <div className="h-1.5 overflow-hidden rounded-full bg-neutral-800">
-                    <div className="h-full w-2/3 rounded-full bg-indigo-400" />
-                  </div>
-                </div>
+              <div className="mx-auto mb-3 h-1.5 w-20 rounded-full bg-neutral-200" />
+              <div className="overflow-hidden rounded-[1.5rem] border border-neutral-200 bg-neutral-950/90">
+                <img
+                  src={heroDashboard}
+                  alt="OrderBooker web dashboard"
+                  className="h-full w-full object-cover"
+                />
               </div>
             </motion.div>
           </motion.div>
         </div>
       </section>
 
-      {/* Features */}
+      {/* Stats strip */}
+      <section className="border-b border-neutral-200 bg-indigo-50/80">
+        <div className="mx-auto max-w-6xl px-4 py-6 sm:px-6 lg:px-8">
+          <motion.div
+            className="grid gap-4 text-sm text-neutral-700 sm:grid-cols-4"
+            {...fadeUp(0.05)}
+          >
+            {stats.map((item) => (
+              <div
+                key={item.label}
+                className="rounded-2xl border border-neutral-200 bg-white px-4 py-3 text-center shadow-sm shadow-neutral-100"
+              >
+                <p className="text-base font-semibold text-indigo-600">
+                  {item.value}
+                </p>
+                <p className="mt-1 text-xs text-neutral-600">{item.label}</p>
+              </div>
+            ))}
+          </motion.div>
+        </div>
+      </section>
+
+      {/* Product showcase */}
+      <section className="border-b border-neutral-200 bg-[#F5F7FF]">
+        <div className="mx-auto max-w-6xl px-4 py-14 sm:px-6 sm:py-16 lg:px-8">
+          <motion.div
+            className="mb-8 max-w-2xl"
+            {...fadeUp(0)}
+          >
+            <h2 className="text-2xl font-semibold tracking-tight text-neutral-900 sm:text-3xl">
+              See OrderBooker in action.
+            </h2>
+            <p className="mt-3 text-sm text-neutral-600">
+              Switch between core features to see how OrderBooker supports your
+              teams in the field and at head office.
+            </p>
+          </motion.div>
+
+          <div className="grid gap-8 lg:grid-cols-[minmax(0,1.1fr)_minmax(0,1.3fr)]">
+            {/* Tabs + text */}
+            <motion.div
+              className="space-y-5"
+              {...fadeUp(0.05)}
+            >
+              <div className="flex flex-wrap gap-2">
+                {showcaseFeatures.map((feature) => {
+                  const isActive = feature.key === activeShowcase
+                  return (
+                    <button
+                      key={feature.key}
+                      type="button"
+                      onClick={() => setActiveShowcase(feature.key)}
+                      className={`rounded-full px-3 py-1 text-xs font-medium transition ${
+                        isActive
+                          ? 'bg-indigo-600 text-white shadow-sm'
+                          : 'bg-neutral-100 text-neutral-700 hover:bg-neutral-200'
+                      }`}
+                    >
+                      {feature.title}
+                    </button>
+                  )
+                })}
+              </div>
+
+              {showcaseFeatures.map((feature) => {
+                if (feature.key !== activeShowcase) return null
+                return (
+                  <motion.div
+                    key={feature.key}
+                    initial={{ opacity: 0, y: 12 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.35, ease: 'easeOut' }}
+                    className="space-y-3"
+                  >
+                    <p className="inline-flex items-center gap-2 rounded-full bg-indigo-50 px-2.5 py-1 text-[11px] font-medium uppercase tracking-[0.18em] text-indigo-700">
+                      {feature.badge}
+                    </p>
+                    <h3 className="text-lg font-semibold text-neutral-900">
+                      {feature.title}
+                    </h3>
+                    <p className="text-sm text-neutral-700">
+                      {feature.description}
+                    </p>
+                  </motion.div>
+                )
+              })}
+            </motion.div>
+
+            {/* Screenshot */}
+            <motion.div
+              className="flex items-center justify-center"
+              {...fadeUp(0.1)}
+            >
+              {showcaseFeatures.map((feature) => {
+                if (feature.key !== activeShowcase) return null
+                return (
+                  <motion.div
+                    key={feature.key}
+                    initial={{ opacity: 0, scale: 0.98 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    transition={{ duration: 0.35, ease: 'easeOut' }}
+                    className="w-full max-w-xl overflow-hidden rounded-2xl border border-neutral-200 bg-neutral-950/90 shadow-[0_18px_60px_rgba(15,23,42,0.35)]"
+                  >
+                    <img
+                      src={feature.image}
+                      alt={feature.title}
+                      className="h-full w-full object-cover"
+                    />
+                  </motion.div>
+                )
+              })}
+            </motion.div>
+          </div>
+        </div>
+      </section>
+
+      {/* Why OrderBooker */}
       <section id="features" className="border-b border-neutral-200 bg-white">
         <div className="mx-auto max-w-6xl px-4 py-14 sm:px-6 sm:py-16 lg:px-8">
           <motion.div
@@ -195,11 +358,11 @@ export function Home() {
             {...fadeUp(0)}
           >
             <h2 className="text-2xl font-semibold tracking-tight text-neutral-900 sm:text-3xl">
-              Everything your field team needs.
+              Why teams choose OrderBooker.
             </h2>
             <p className="mt-3 text-sm text-neutral-600">
               OrderBooker keeps order bookers, sales managers and distributors
-              on the same page — without extra spreadsheets or WhatsApp groups.
+              aligned—from first check-in to final dispatch and reporting.
             </p>
           </motion.div>
 
@@ -230,7 +393,7 @@ export function Home() {
       {/* How it works */}
       <section
         id="how-it-works"
-        className="border-b border-neutral-200 bg-[#F9FAFB]"
+        className="border-b border-neutral-200 bg-[#EEF2FF]"
       >
         <div className="mx-auto max-w-6xl px-4 py-14 sm:px-6 sm:py-16 lg:px-8">
           <motion.div
@@ -268,7 +431,7 @@ export function Home() {
       </section>
 
       {/* Personas */}
-      <section className="border-b border-neutral-200 bg-white">
+      <section className="border-b border-neutral-200 bg-[#F9FAFF]">
         <div className="mx-auto max-w-6xl px-4 py-14 sm:px-6 sm:py-16 lg:px-8">
           <motion.div
             className="mb-10 max-w-2xl"
