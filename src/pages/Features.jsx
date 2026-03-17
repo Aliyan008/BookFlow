@@ -57,12 +57,15 @@ export function Features() {
           className="mb-12 text-center sm:mb-16"
           {...fadeUp(0)}
         >
-          <h1 className="text-3xl font-semibold tracking-tight text-neutral-900 sm:text-4xl">
-            Features built for real field sales and distribution.
+          <p className="mx-auto inline-flex items-center gap-2 rounded-full bg-indigo-50 px-3 py-1 text-xs font-medium text-indigo-700 ring-1 ring-indigo-100">
+            Product · Features
+          </p>
+          <h1 className="mt-4 text-3xl font-semibold tracking-tight text-neutral-900 sm:text-4xl">
+            Everything your field team needs in one app.
           </h1>
           <p className="mx-auto mt-4 max-w-2xl text-sm text-neutral-600 sm:text-base">
-            Features built for field sales, distributors, and managers—from
-            offline order booking to GPS-verified visits and team visibility.
+            OrderBooker brings offline order booking, GPS-verified attendance, distributor
+            coordination and role-based reporting into a single, offline-ready mobile app.
           </p>
         </motion.section>
 
@@ -72,7 +75,7 @@ export function Features() {
             {features.map((feature, idx) => (
               <motion.article
                 key={feature.headline}
-                className="flex flex-col rounded-2xl border border-neutral-200 bg-white p-6 shadow-sm shadow-neutral-100 transition hover:shadow-lg"
+                className="flex flex-col rounded-2xl border border-neutral-200 bg-white p-6 shadow-sm shadow-neutral-100 transition hover:-translate-y-0.5 hover:shadow-lg"
                 {...fadeUp(0.05 * idx)}
               >
                 <h2 className="text-base font-semibold tracking-tight text-neutral-900">
@@ -88,61 +91,68 @@ export function Features() {
 
         {/* By role */}
         <motion.section
-          className="mb-16 rounded-2xl border border-neutral-200 bg-white p-6 sm:p-8"
+          className="mb-16 rounded-2xl border border-neutral-200 bg-[#F9FAFF] p-6 sm:p-8"
           {...fadeUp(0.1)}
         >
           <h2 className="text-lg font-semibold tracking-tight text-neutral-900">
-            By role
+            Designed for every role in your route-to-market.
           </h2>
-          <div className="mt-4 grid gap-6 sm:grid-cols-3">
-            <div>
+          <p className="mt-2 max-w-2xl text-sm text-neutral-600">
+            Order bookers, sales managers and distributors all work from the same source
+            of truth—instead of juggling separate tools and spreadsheets.
+          </p>
+          <div className="mt-6 grid gap-6 sm:grid-cols-3">
+            <article className="flex h-full flex-col rounded-2xl border border-white bg-white/80 p-5 shadow-sm shadow-neutral-100">
               <h3 className="text-sm font-semibold text-neutral-900">
                 Order bookers
               </h3>
-              <p className="mt-2 text-sm text-neutral-600">
-                Book orders offline, save drafts, sync when online. Get a quick
-                daily summary of visits and orders.
-              </p>
-            </div>
-            <div>
+              <ul className="mt-3 space-y-2 text-xs text-neutral-600">
+                <li>• Book orders offline and sync later.</li>
+                <li>• Beat-wise shop lists and visit history.</li>
+                <li>• Clear daily targets and end-of-day summary.</li>
+              </ul>
+            </article>
+            <article className="flex h-full flex-col rounded-2xl border border-white bg-white/80 p-5 shadow-sm shadow-neutral-100">
               <h3 className="text-sm font-semibold text-neutral-900">
                 Sales officers & managers
               </h3>
-              <p className="mt-2 text-sm text-neutral-600">
-                See your team’s shops, attendance and visits. Dashboards and
-                reports without sharing logins.
-              </p>
-            </div>
-            <div>
+              <ul className="mt-3 space-y-2 text-xs text-neutral-600">
+                <li>• Live visibility on who is in field.</li>
+                <li>• Coverage, productivity and beat performance.</li>
+                <li>• Clean daily reports—no chasing screenshots.</li>
+              </ul>
+            </article>
+            <article className="flex h-full flex-col rounded-2xl border border-white bg-white/80 p-5 shadow-sm shadow-neutral-100">
               <h3 className="text-sm font-semibold text-neutral-900">
                 Distributors
               </h3>
-              <p className="mt-2 text-sm text-neutral-600">
-                View sales and update stock in one app. Stays in sync with what
-                order bookers and the system record.
-              </p>
-            </div>
+              <ul className="mt-3 space-y-2 text-xs text-neutral-600">
+                <li>• Orders tied directly to real inventory.</li>
+                <li>• Simple view of sales and stock in one place.</li>
+                <li>• Less manual reconciliation with the field.</li>
+              </ul>
+            </article>
           </div>
         </motion.section>
 
         {/* Final CTA */}
         <motion.section
-          className="rounded-2xl bg-neutral-950 px-6 py-10 text-white sm:px-10 sm:py-12"
+          className="rounded-2xl bg-gradient-to-r from-[#020617] via-[#020617] to-[#0B1120] px-6 py-10 text-white sm:px-10 sm:py-12"
           {...fadeUp(0.15)}
         >
           <div className="flex flex-col items-start gap-6 sm:flex-row sm:items-center sm:justify-between">
             <div>
               <h2 className="text-2xl font-semibold tracking-tight sm:text-3xl">
-                Ready to transform your field sales?
+                Seen what OrderBooker can do?
               </h2>
               <p className="mt-3 max-w-xl text-sm text-neutral-300">
-                Book a short call to see how OrderBooker can roll out across
-                your distributors in weeks, not months.
+                Share your field structure and we’ll show you exactly how OrderBooker
+                can fit your outlets, reps and distributors.
               </p>
             </div>
             <div className="flex flex-wrap items-center gap-3">
               <Button as={NavLink} to="/contact">
-                Get in Touch
+                Request a demo
               </Button>
             </div>
           </div>

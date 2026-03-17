@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { motion } from 'framer-motion'
+import { motion, AnimatePresence } from 'framer-motion'
 import { Button } from '../components/Button'
 import { NavLink } from 'react-router-dom'
 import heroDashboard from '../assets/dashboard.jpeg'
@@ -8,6 +8,11 @@ import ordersImage from '../assets/orders_page.jpeg'
 import stockManagementImage from '../assets/stock_management.jpeg'
 import dailyReportImage from '../assets/daily_report.jpeg'
 import realtimeLocationImage from '../assets/realtime_location.jpeg'
+import analyticsImage from '../assets/analytics.jpeg'
+import attendanceAppImage from '../assets/attendance_app.jpeg'
+import homeTabImage from '../assets/home_tab.jpeg'
+import metroMilanLogo from '../assets/metromilan.png'
+import franscentLogo from '../assets/franscent.png'
 
 const featureCards = [
   {
@@ -146,6 +151,8 @@ const showcaseFeatures = [
 
 export function Home() {
   const [activeShowcase, setActiveShowcase] = useState(showcaseFeatures[0].key)
+  const heroMobileScreens = [analyticsImage, attendanceAppImage, homeTabImage]
+  const [heroMobileIndex, setHeroMobileIndex] = useState(0)
 
   const scrollToHowItWorks = () => {
     const el = document.getElementById('how-it-works')
@@ -171,22 +178,31 @@ export function Home() {
     return () => clearInterval(interval)
   }, [])
 
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setHeroMobileIndex((prev) =>
+        prev === heroMobileScreens.length - 1 ? 0 : prev + 1,
+      )
+    }, 4500)
+    return () => clearInterval(interval)
+  }, [heroMobileScreens.length])
+
   return (
     <div className="flex min-h-[calc(100vh-4rem-4rem)] flex-col bg-white text-[#0a0a0a]">
       {/* Hero */}
-      <section className="border-b border-neutral-200 bg-gradient-to-b from-[#F9FAFF] via-white to-white">
+      <section className="border-b border-neutral-800 bg-gradient-to-b from-[#020617] via-[#020617] to-[#F9FAFF]">
         <div className="mx-auto flex min-h-[calc(100vh-4rem-4rem)] max-w-6xl flex-col gap-12 px-4 py-14 sm:px-6 sm:py-20 lg:flex-row lg:items-center lg:justify-between lg:gap-16 lg:px-8">
           <motion.div
             className="max-w-xl space-y-7"
             {...fadeUp(0)}
           >
-            <p className="inline-flex items-center gap-2 rounded-full bg-indigo-50 px-3 py-1 text-xs font-medium text-indigo-700 ring-1 ring-indigo-100">
+            <p className="inline-flex items-center gap-2 rounded-full bg-indigo-500/15 px-3 py-1 text-xs font-medium text-indigo-300 ring-1 ring-indigo-500/40">
               Built for FMCG & distribution teams
             </p>
-            <h1 className="text-4xl font-semibold tracking-tight text-[#050816] sm:text-5xl lg:text-[2.9rem]">
+            <h1 className="text-4xl font-semibold tracking-tight text-white sm:text-5xl lg:text-[2.9rem]">
               Field Sales, Simplified.
             </h1>
-            <p className="text-sm leading-relaxed text-neutral-700 sm:text-base">
+            <p className="text-sm leading-relaxed text-slate-200 sm:text-base">
               GPS attendance, order booking, distributor management and daily
               reporting — all in one app that works even offline.
             </p>
@@ -203,7 +219,7 @@ export function Home() {
                 See How It Works
               </Button>
             </div>
-            <p className="text-xs text-neutral-500">
+            <p className="text-xs text-slate-400">
               Trusted by distribution and FMCG teams to digitize field
               operations across Pakistan.
             </p>
@@ -215,9 +231,9 @@ export function Home() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, ease: 'easeOut', delay: 0.1 }}
           >
-            <div className="pointer-events-none absolute inset-0 -z-10 translate-y-6 bg-[radial-gradient(circle_at_top,_rgba(99,102,241,0.18),_transparent_55%)]" />
+            <div className="pointer-events-none absolute inset-0 -z-10 translate-y-6 bg-[radial-gradient(circle_at_top,_rgba(56,189,248,0.18),_transparent_55%)]" />
             <motion.div
-              className="relative w-full max-w-lg rounded-[2rem] border border-white/60 bg-gradient-to-b from-white via-white to-neutral-50 p-3 shadow-[0_18px_60px_rgba(15,23,42,0.15)]"
+              className="relative w-full max-w-lg rounded-[2rem] border border-white/10 bg-gradient-to-b from-slate-900/80 via-slate-900/95 to-slate-950 p-3 shadow-[0_24px_80px_rgba(15,23,42,0.7)]"
               animate={{ y: [0, -8, 0] }}
               transition={{ duration: 6, repeat: Infinity, ease: 'easeInOut' }}
             >
@@ -229,14 +245,29 @@ export function Home() {
                   className="h-full w-full object-cover"
                 />
               </div>
+              {/* Mobile overlay */}
+              <div className="pointer-events-none absolute -bottom-30 -right-18 hidden w-[32%] max-w-[210px] rounded-[1.9rem] border border-slate-700/80 bg-gradient-to-b from-slate-900 via-slate-950 to-black/95 p-1.5 shadow-[0_34px_88px_rgba(0,0,0,0.98)] sm:block">
+                <div className="mb-1 flex items-center justify-center">
+                  <span className="h-1 w-12 rounded-full bg-slate-700" />
+                </div>
+                <div className="relative overflow-hidden rounded-[1.35rem] border border-slate-800/80 bg-black">
+                  <div className="aspect-[9/19] w-full">
+                    <img
+                      src={heroMobileScreens[heroMobileIndex]}
+                      alt="OrderBooker mobile app"
+                      className="h-full w-full object-cover"
+                    />
+                  </div>
+                </div>
+              </div>
             </motion.div>
           </motion.div>
         </div>
       </section>
 
       {/* Stats strip */}
-      <section className="border-b border-neutral-200 bg-indigo-50/80">
-        <div className="mx-auto max-w-6xl px-4 py-6 sm:px-6 lg:px-8">
+      <section className="border-b border-slate-800 bg-slate-900">
+        <div className="mx-auto max-w-6xl px-4 py-14 sm:px-6 lg:px-8">
           <motion.div
             className="grid gap-4 text-sm text-neutral-700 sm:grid-cols-4"
             {...fadeUp(0.05)}
@@ -244,31 +275,139 @@ export function Home() {
             {stats.map((item) => (
               <div
                 key={item.label}
-                className="rounded-2xl border border-neutral-200 bg-white px-4 py-3 text-center shadow-sm shadow-neutral-100"
+                className="rounded-2xl border border-slate-700 bg-slate-900/80 px-4 py-4 text-center shadow-sm shadow-black/40"
               >
-                <p className="text-base font-semibold text-indigo-600">
+                <p className="text-base font-semibold text-sky-300">
                   {item.value}
                 </p>
-                <p className="mt-1 text-xs text-neutral-600">{item.label}</p>
+                <p className="mt-1 text-xs text-slate-300">{item.label}</p>
               </div>
             ))}
           </motion.div>
         </div>
       </section>
 
+      {/* Trusted brands */}
+      <section className="border-b border-neutral-200 bg-[#020617] text-slate-100">
+        <div className="mx-auto max-w-6xl px-4 py-20 sm:px-6 lg:px-8">
+          <motion.div
+            className="mb-8 text-center"
+            {...fadeUp(0)}
+          >
+            <h2 className="text-2xl font-semibold tracking-tight sm:text-3xl">
+              Trusted by growing FMCG brands
+            </h2>
+            <p className="mt-3 text-sm text-slate-300">
+              Early partners using OrderBooker to digitize field sales operations.
+            </p>
+          </motion.div>
+
+          <motion.div
+            className="relative flex flex-wrap items-center justify-center gap-6 text-sm font-semibold text-slate-100 sm:gap-8"
+            {...fadeUp(0.05)}
+          >
+            <div className="pointer-events-none absolute inset-x-10 -top-8 -z-10 h-24 bg-[radial-gradient(circle,_rgba(79,70,229,0.4),_transparent_60%)] opacity-70" />
+            <div className="flex w-full max-w-xs items-center gap-4 rounded-2xl border border-slate-700/80 bg-slate-900/90 px-7 py-4 shadow-sm shadow-black/50 sm:max-w-sm">
+              <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-white">
+                <img
+                  src={metroMilanLogo}
+                  alt="Metro Milan logo"
+                  className="h-10 w-10 object-contain"
+                />
+              </div>
+              <div className="flex flex-1 items-center justify-between">
+                <span className="text-sm font-semibold">Metro Milan</span>
+              </div>
+            </div>
+            <div className="flex w-full max-w-xs items-center gap-4 rounded-2xl border border-slate-700/80 bg-slate-900/90 px-7 py-4 shadow-sm shadow-black/50 sm:max-w-sm">
+              <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-white">
+                <img
+                  src={franscentLogo}
+                  alt="Franscent logo"
+                  className="h-10 w-10 object-contain"
+                />
+              </div>
+              <div className="flex flex-1 items-center justify-between">
+                <span className="text-sm font-semibold">Franscent Fragrance</span>
+              </div>
+            </div>
+          </motion.div>
+        </div>
+      </section>
+
+      {/* Platform modules */}
+      <section className="border-b border-neutral-200 bg-[#E5E7EB]">
+        <div className="mx-auto max-w-6xl px-4 py-16 sm:px-6 lg:px-8">
+          <motion.div
+            className="mb-10 max-w-2xl"
+            {...fadeUp(0)}
+          >
+            <h2 className="text-2xl font-semibold tracking-tight text-slate-900 sm:text-3xl">
+              The OrderBooker Platform
+            </h2>
+            <p className="mt-3 text-sm text-slate-700">
+              Four connected modules that keep order bookers, managers and distributors
+              working from the same source of truth.
+            </p>
+          </motion.div>
+
+          <motion.div
+            className="grid gap-6 md:grid-cols-2 lg:grid-cols-4"
+            {...fadeUp(0.05)}
+          >
+            <article className="flex h-full flex-col rounded-2xl border border-slate-200 bg-white p-6 shadow-sm shadow-slate-200">
+              <h3 className="text-sm font-semibold text-slate-900">
+                OrderBooker Field
+              </h3>
+              <p className="mt-3 text-xs leading-relaxed text-slate-700">
+                Mobile app for order bookers to track visits, mark GPS attendance and
+                capture orders in seconds—even when offline.
+              </p>
+            </article>
+            <article className="flex h-full flex-col rounded-2xl border border-slate-200 bg-white p-6 shadow-sm shadow-slate-200">
+              <h3 className="text-sm font-semibold text-slate-900">
+                OrderBooker Manager
+              </h3>
+              <p className="mt-3 text-xs leading-relaxed text-slate-700">
+                Dashboard for sales managers to monitor performance, rep activity and
+                territory coverage throughout the day.
+              </p>
+            </article>
+            <article className="flex h-full flex-col rounded-2xl border border-slate-200 bg-white p-6 shadow-sm shadow-slate-200">
+              <h3 className="text-sm font-semibold text-slate-900">
+                OrderBooker Distributor
+              </h3>
+              <p className="mt-3 text-xs leading-relaxed text-slate-700">
+                Distributor portal for managing incoming orders, planning dispatch and
+                keeping inventory aligned with field demand.
+              </p>
+            </article>
+            <article className="flex h-full flex-col rounded-2xl border border-slate-200 bg-white p-6 shadow-sm shadow-slate-200">
+              <h3 className="text-sm font-semibold text-slate-900">
+                OrderBooker Insights
+              </h3>
+              <p className="mt-3 text-xs leading-relaxed text-slate-700">
+                Real-time analytics dashboards for visits, coverage and sales so leaders
+                can react in hours—not weeks.
+              </p>
+            </article>
+          </motion.div>
+        </div>
+      </section>
+
       {/* Product showcase */}
-      <section className="border-b border-neutral-200 bg-[#F5F7FF]">
+      <section className="border-b border-neutral-200 bg-[#0F172A] text-slate-100">
         <div className="mx-auto max-w-6xl px-4 py-14 sm:px-6 sm:py-16 lg:px-8">
           <motion.div
             className="mb-8 max-w-2xl"
             {...fadeUp(0)}
           >
-            <h2 className="text-2xl font-semibold tracking-tight text-neutral-900 sm:text-3xl">
-              See OrderBooker in action.
+            <h2 className="text-2xl font-semibold tracking-tight sm:text-3xl">
+              See OrderBooker in Action
             </h2>
-            <p className="mt-3 text-sm text-neutral-600">
-              Switch between core features to see how OrderBooker supports your
-              teams in the field and at head office.
+            <p className="mt-3 text-sm text-slate-100">
+              Explore how OrderBooker supports teams in the field and at head office—
+              from GPS attendance to distributor execution.
             </p>
           </motion.div>
 
@@ -298,28 +437,31 @@ export function Home() {
                 })}
               </div>
 
-              {showcaseFeatures.map((feature) => {
-                if (feature.key !== activeShowcase) return null
-                return (
-                  <motion.div
-                    key={feature.key}
-                    initial={{ opacity: 0, y: 12 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.35, ease: 'easeOut' }}
-                    className="space-y-3"
-                  >
-                    <p className="inline-flex items-center gap-2 rounded-full bg-indigo-50 px-2.5 py-1 text-[11px] font-medium uppercase tracking-[0.18em] text-indigo-700">
-                      {feature.badge}
-                    </p>
-                    <h3 className="text-lg font-semibold text-neutral-900">
-                      {feature.title}
-                    </h3>
-                    <p className="text-sm text-neutral-700">
-                      {feature.description}
-                    </p>
-                  </motion.div>
-                )
-              })}
+              <AnimatePresence mode="wait">
+                {showcaseFeatures.map((feature) => {
+                  if (feature.key !== activeShowcase) return null
+                  return (
+                    <motion.div
+                      key={feature.key}
+                      initial={{ opacity: 0, y: 12 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      exit={{ opacity: 0, y: -12 }}
+                      transition={{ duration: 0.4, ease: 'easeOut' }}
+                      className="space-y-3"
+                    >
+                      <p className="inline-flex items-center gap-2 rounded-full bg-indigo-500/20 px-2.5 py-1 text-[11px] font-medium uppercase tracking-[0.18em] text-indigo-200">
+                        {feature.badge}
+                      </p>
+                      <h3 className="text-lg font-semibold text-white">
+                        {feature.title}
+                      </h3>
+                      <p className="text-sm text-slate-100">
+                        {feature.description}
+                      </p>
+                    </motion.div>
+                  )
+                })}
+              </AnimatePresence>
             </motion.div>
 
             {/* Screenshot */}
@@ -327,24 +469,27 @@ export function Home() {
               className="flex items-center justify-center"
               {...fadeUp(0.1)}
             >
-              {showcaseFeatures.map((feature) => {
-                if (feature.key !== activeShowcase) return null
-                return (
-                  <motion.div
-                    key={feature.key}
-                    initial={{ opacity: 0, scale: 0.98 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    transition={{ duration: 0.35, ease: 'easeOut' }}
-                    className="w-full max-w-xl overflow-hidden rounded-2xl border border-neutral-200 bg-neutral-950/90 shadow-[0_18px_60px_rgba(15,23,42,0.35)]"
-                  >
-                    <img
-                      src={feature.image}
-                      alt={feature.title}
-                      className="h-full w-full object-cover"
-                    />
-                  </motion.div>
-                )
-              })}
+              <AnimatePresence mode="wait">
+                {showcaseFeatures.map((feature) => {
+                  if (feature.key !== activeShowcase) return null
+                  return (
+                    <motion.div
+                      key={feature.key}
+                      initial={{ opacity: 0, scale: 0.98 }}
+                      animate={{ opacity: 1, scale: 1 }}
+                      exit={{ opacity: 0, scale: 0.98 }}
+                      transition={{ duration: 0.45, ease: 'easeOut' }}
+                      className="w-full max-w-xl overflow-hidden rounded-2xl border border-neutral-200 bg-neutral-950/90 shadow-[0_18px_60px_rgba(15,23,42,0.35)]"
+                    >
+                      <img
+                        src={feature.image}
+                        alt={feature.title}
+                        className="h-full w-full object-cover"
+                      />
+                    </motion.div>
+                  )
+                })}
+              </AnimatePresence>
             </motion.div>
           </div>
         </div>
@@ -471,7 +616,7 @@ export function Home() {
       </section>
 
       {/* Final CTA */}
-      <section className="bg-neutral-950 text-white">
+      <section className="bg-gradient-to-r from-[#020617] via-[#020617] to-[#0B1120] text-white">
         <div className="mx-auto max-w-6xl px-4 py-14 sm:px-6 sm:py-16 lg:px-8">
           <motion.div
             className="flex flex-col items-start gap-6 sm:flex-row sm:items-center sm:justify-between"
