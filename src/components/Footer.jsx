@@ -6,7 +6,7 @@ export function Footer() {
       <div className="mx-auto flex max-w-6xl flex-col gap-6 px-4 py-8 text-sm text-neutral-600 sm:flex-row sm:items-start sm:justify-between sm:px-6 lg:px-8">
         <div className="space-y-3">
           <p className="text-sm font-semibold text-neutral-900">
-            OrderBooker
+            Bookflow
           </p>
           <nav className="flex flex-wrap gap-3 text-xs sm:text-sm">
             <NavLink to="/" className="hover:text-indigo-600">
