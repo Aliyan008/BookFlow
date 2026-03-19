@@ -3,7 +3,7 @@ import { NavLink } from 'react-router-dom'
 import { Button } from './Button'
 
 const navLinkClasses =
-  'relative text-sm font-medium text-neutral-600 transition-colors duration-200 ease-out px-3 py-1.5 rounded-full hover:text-transparent hover:bg-clip-text hover:bg-gradient-to-r hover:from-indigo-500 hover:to-fuchsia-500'
+  'relative text-sm font-medium text-neutral-600 transition-colors duration-200 ease-out px-3 py-1.5 rounded-full hover:text-transparent hover:bg-clip-text hover:bg-gradient-to-r hover:from-indigo-500 hover:to-sky-500'
 
 export function Navbar() {
   const [isMobileOpen, setIsMobileOpen] = useState(false)
@@ -36,7 +36,7 @@ export function Navbar() {
             <img
               src="/logo.svg"
               alt="Bookflow logo"
-              className="h-10 w-10 object-contain transition-transform duration-200"
+              className="h-14 w-14 object-contain transition-transform duration-200"
             />
             <div className="flex flex-col">
               <span className="text-sm font-semibold text-neutral-900">
@@ -55,7 +55,7 @@ export function Navbar() {
                 className={({ isActive }) =>
                   `${navLinkClasses} ${
                     isActive
-                      ? 'bg-gradient-to-r from-indigo-500 to-fuchsia-500 text-white shadow-sm'
+                      ? 'bg-gradient-to-r from-indigo-500 to-indigo-600 text-white shadow-sm'
                       : 'hover:bg-neutral-100/90'
                   }`
                 }
@@ -67,7 +67,7 @@ export function Navbar() {
                 className={({ isActive }) =>
                   `${navLinkClasses} ${
                     isActive
-                      ? 'bg-gradient-to-r from-indigo-500 to-fuchsia-500 text-white shadow-sm'
+                      ? 'bg-gradient-to-r from-indigo-500 to-indigo-600 text-white shadow-sm'
                       : 'hover:bg-neutral-100/90'
                   }`
                 }
@@ -79,7 +79,7 @@ export function Navbar() {
                 className={({ isActive }) =>
                   `${navLinkClasses} ${
                     isActive
-                      ? 'bg-gradient-to-r from-indigo-500 to-fuchsia-500 text-white shadow-sm'
+                      ? 'bg-gradient-to-r from-indigo-500 to-indigo-600 text-white shadow-sm'
                       : 'hover:bg-neutral-100/90'
                   }`
                 }
@@ -91,7 +91,7 @@ export function Navbar() {
                 className={({ isActive }) =>
                   `${navLinkClasses} ${
                     isActive
-                      ? 'bg-gradient-to-r from-indigo-500 to-fuchsia-500 text-white shadow-sm'
+                      ? 'bg-gradient-to-r from-indigo-500 to-indigo-600 text-white shadow-sm'
                       : 'hover:bg-neutral-100/90'
                   }`
                 }
@@ -105,7 +105,7 @@ export function Navbar() {
             <Button
               as={NavLink}
               to="/contact"
-              className="relative overflow-hidden bg-gradient-to-r from-indigo-500 via-violet-500 to-fuchsia-500 text-sm font-semibold text-white shadow-[0_12px_30px_rgba(79,70,229,0.55)] transition-transform duration-200 hover:scale-[1.04] active:scale-95"
+              className="relative overflow-hidden bg-gradient-to-r from-indigo-500 via-indigo-600 to-indigo-700 text-sm font-semibold text-white shadow-[0_12px_30px_rgba(79,70,229,0.55)] transition-transform duration-200 hover:scale-[1.04] active:scale-95"
             >
               <span className="relative z-10">Request a Demo</span>
               <span className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top,_rgba(255,255,255,0.55),_transparent_55%)] opacity-0 transition-opacity duration-300 hover:opacity-100" />
@@ -224,7 +224,7 @@ export function Navbar() {
                   as={NavLink}
                   to="/contact"
                   onClick={() => setIsMobileOpen(false)}
-                  className="w-full justify-center bg-gradient-to-r from-indigo-500 via-violet-500 to-fuchsia-500 text-sm font-semibold shadow-[0_16px_40px_rgba(79,70,229,0.7)] hover:scale-[1.02] active:scale-95 transition-transform duration-200"
+                  className="w-full justify-center bg-gradient-to-r from-indigo-500 via-indigo-600 to-indigo-700 text-sm font-semibold shadow-[0_16px_40px_rgba(79,70,229,0.7)] hover:scale-[1.02] active:scale-95 transition-transform duration-200"
                 >
                   Request a Demo
                 </Button>

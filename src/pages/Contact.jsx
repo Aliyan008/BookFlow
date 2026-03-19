@@ -16,17 +16,20 @@ export function Contact() {
           className="mb-10"
           {...fadeUp(0)}
         >
+          <p className="inline-flex items-center gap-2 rounded-full bg-indigo-50 px-3 py-1 text-xs font-medium text-indigo-700 ring-1 ring-indigo-100">
+            Contact · Bookflow
+          </p>
           <h1 className="text-3xl font-semibold tracking-tight text-neutral-900 sm:text-4xl">
             Let&apos;s talk about your field sales.
           </h1>
           <p className="mt-4 max-w-2xl text-sm text-neutral-600 sm:text-base">
             Share a few details about your company and we&apos;ll schedule a
-            short demo of OrderBooker tailored to your routes, distributors and
+            short demo of Bookflow tailored to your routes, distributors and
             field team size.
           </p>
         </motion.section>
 
-        <section className="grid gap-8 rounded-2xl border border-neutral-200 bg-white p-6 shadow-sm shadow-neutral-100 sm:p-8 md:grid-cols-[minmax(0,1.1fr)_minmax(0,1.4fr)]">
+        <section className="grid gap-8 rounded-2xl border border-neutral-200 bg-[#F9FAFF] p-6 shadow-sm shadow-neutral-100 sm:p-8 md:grid-cols-[minmax(0,1.1fr)_minmax(0,1.4fr)]">
           {/* Left column */}
           <motion.div
             className="space-y-6"
@@ -39,7 +42,8 @@ export function Contact() {
               <p className="mt-3 text-sm text-neutral-600">
                 A 30–45 minute conversation to understand your current field
                 process, distributors and reporting needs—followed by a live
-                walk-through of how OrderBooker can fit in.
+                walkthrough of how Bookflow would fit into your existing routes,
+                teams and distributors.
               </p>
             </div>
             <div className="space-y-3 text-sm text-neutral-600">

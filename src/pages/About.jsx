@@ -33,7 +33,7 @@ export function About() {
         >
           <div className="pointer-events-none absolute inset-0 -z-10">
             <div className="absolute -left-24 -top-24 h-72 w-72 rounded-full bg-indigo-500/15 blur-3xl" />
-            <div className="absolute -right-24 top-10 h-72 w-72 rounded-full bg-fuchsia-500/10 blur-3xl" />
+            <div className="absolute -right-24 top-10 h-72 w-72 rounded-full bg-indigo-400/10 blur-3xl" />
             <div className="absolute -bottom-28 left-24 h-80 w-80 rounded-full bg-sky-500/10 blur-3xl" />
           </div>
           <p className="inline-flex items-center gap-2 rounded-full bg-indigo-50 px-3 py-1 text-xs font-medium text-indigo-700 ring-1 ring-indigo-100">
@@ -91,7 +91,7 @@ export function About() {
             </article>
 
             <article className="group flex h-full flex-col rounded-2xl border border-neutral-200 bg-white p-6 shadow-sm shadow-neutral-100 transition duration-200 hover:-translate-y-0.5 hover:shadow-lg">
-              <p className="inline-flex w-fit items-center rounded-full bg-fuchsia-50 px-2.5 py-1 text-[11px] font-medium uppercase tracking-[0.18em] text-fuchsia-700 ring-1 ring-fuchsia-100">
+              <p className="inline-flex w-fit items-center rounded-full bg-indigo-50 px-2.5 py-1 text-[11px] font-medium uppercase tracking-[0.18em] text-indigo-700 ring-1 ring-indigo-100">
                 Distributors
               </p>
               <h3 className="mt-4 text-sm font-semibold text-neutral-900">
