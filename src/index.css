@@ -1,6 +1,5 @@
 @import "tailwindcss";
 
-/* Global layout and typography overrides */
 html,
 body,
 #root {
@@ -8,7 +7,73 @@ body,
 }
 
 body {
-  @apply bg-[#F9FAFB] text-[#1E1E1E] antialiased;
+  @apply antialiased;
+  font-family: Inter, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  background-color: #0a0f1e;
+  background-image: radial-gradient(circle at 2px 2px, rgba(31, 41, 55, 0.4) 1px, transparent 0);
+  background-size: 24px 24px;
+  color: #e4e1ed;
+}
+
+:root {
+  --background: #0a0f1e;
+  --primary: #c0c1ff;
+  --secondary: #4cd7f6;
+  --tertiary: #ffb783;
+  --surface: #13131b;
+  --surface-dim: #13131b;
+  --surface-container-lowest: #0d0d15;
+  --surface-container-low: #1b1b23;
+  --surface-container: #1f1f27;
+  --surface-container-high: #292932;
+  --surface-container-highest: #34343d;
+  --surface-variant: #34343d;
+  --surface-bright: #393841;
+  --on-surface: #e4e1ed;
+  --on-surface-variant: #c7c4d7;
+  --outline: #908fa0;
+  --outline-variant: #464554;
+  --primary-container: #8083ff;
+  --secondary-container: #03b5d3;
+  --tertiary-container: #d97721;
+  --on-primary: #1000a9;
+  --on-primary-container: #0d0096;
+  --on-secondary: #003640;
+  --on-secondary-container: #00424e;
+  --on-tertiary: #4f2500;
+  --on-tertiary-container: #452000;
+  --primary-fixed: #e1e0ff;
+  --primary-fixed-dim: #c0c1ff;
+  --secondary-fixed: #acedff;
+  --secondary-fixed-dim: #4cd7f6;
+  --tertiary-fixed: #ffdcc5;
+  --tertiary-fixed-dim: #ffb783;
+  --on-primary-fixed: #07006c;
+  --on-primary-fixed-variant: #2f2ebe;
+  --on-secondary-fixed: #001f26;
+  --on-secondary-fixed-variant: #004e5c;
+  --on-tertiary-fixed: #301400;
+  --on-tertiary-fixed-variant: #703700;
+}
+
+.dot-grid {
+  background-image: radial-gradient(circle, rgba(144, 143, 160, 0.18) 1px, transparent 1px);
+  background-size: 24px 24px;
+}
+
+.glass-card {
+  background: rgba(17, 24, 39, 0.8);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(31, 41, 55, 0.5);
+}
+
+.hero-glow {
+  position: absolute;
+  width: 420px;
+  height: 420px;
+  background: radial-gradient(circle, rgba(99, 102, 241, 0.2) 0%, transparent 70%);
+  filter: blur(44px);
+  z-index: -1;
 }
 
 /* Hide scrollbar but keep scroll behavior */

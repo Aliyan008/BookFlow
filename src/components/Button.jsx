@@ -1,15 +1,16 @@
 import PropTypes from 'prop-types'
+import { createElement } from 'react'
 
 const baseClasses =
-  'inline-flex items-center justify-center rounded-full px-5 py-2.5 text-sm font-semibold transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-[#344955] disabled:opacity-60 disabled:cursor-not-allowed'
+  'inline-flex items-center justify-center rounded-xl px-5 py-2.5 text-sm font-semibold transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#c0c1ff] disabled:opacity-60 disabled:cursor-not-allowed'
 
 const variants = {
   primary:
-    'bg-[#344955] text-white hover:bg-[#232F34] focus-visible:ring-[#344955]',
+    'bg-[#c0c1ff] text-[#1000a9] hover:bg-[#8083ff]',
   secondary:
-    'bg-white text-[#1E1E1E] border border-neutral-200 hover:bg-neutral-50 focus-visible:ring-neutral-400',
+    'bg-[#1f1f27] text-[#e4e1ed] border border-[#464554] hover:bg-[#292932]',
   ghost:
-    'bg-transparent text-[#344955] hover:bg-neutral-50 focus-visible:ring-[#344955]',
+    'bg-transparent text-[#c0c1ff] border border-[#464554] hover:bg-[#1f1f27]',
 }
 
 export function Button({ as: Component = 'button', variant = 'primary', className = '', children, ...props }) {
@@ -17,11 +18,7 @@ export function Button({ as: Component = 'button', variant = 'primary', classNam
 
   const allClasses = `${baseClasses} ${variantClasses} ${className}`.trim()
 
-  return (
-    <Component className={allClasses} {...props}>
-      {children}
-    </Component>
-  )
+  return createElement(Component, { className: allClasses, ...props }, children)
 }
 
 Button.propTypes = {

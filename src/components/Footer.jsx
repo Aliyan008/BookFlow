@@ -2,35 +2,25 @@ import { NavLink } from 'react-router-dom'
 
 export function Footer() {
   return (
-    <footer className="border-t border-neutral-200 bg-white">
-      <div className="mx-auto flex max-w-6xl flex-col gap-6 px-4 py-8 text-sm text-neutral-600 sm:flex-row sm:items-start sm:justify-between sm:px-6 lg:px-8">
-        <div className="space-y-3">
-          <p className="text-sm font-semibold text-neutral-900">
-            Bookflow
-          </p>
-          <nav className="flex flex-wrap gap-3 text-xs sm:text-sm">
-            <NavLink to="/" className="hover:text-indigo-600">
-              Home
-            </NavLink>
-            <NavLink to="/features" className="hover:text-indigo-600">
-              Features
-            </NavLink>
-            <NavLink to="/about" className="hover:text-indigo-600">
-              About
-            </NavLink>
-            <NavLink to="/contact" className="hover:text-indigo-600">
-              Contact
-            </NavLink>
-          </nav>
-          <p className="text-[11px] text-neutral-500">
-            Built for FMCG &amp; distribution teams across Pakistan.
+    <footer className="border-t border-[#464554]/40 bg-[#0d0d15]">
+      <div className="mx-auto grid max-w-7xl gap-8 px-6 py-10 text-sm text-[#c7c4d7] md:grid-cols-4">
+        <div className="md:col-span-2">
+          <p className="text-lg font-semibold text-[#e4e1ed]">Bookflow</p>
+          <p className="mt-2 max-w-sm text-xs text-[#908fa0]">
+            High-performance distribution software for the next generation of field sales teams.
           </p>
         </div>
-
-        <div className="space-y-2 text-xs sm:text-sm">
-          <p className="font-semibold text-neutral-900">Contact</p>
+        <nav className="space-y-1 text-xs">
+          <p className="font-semibold uppercase tracking-wider text-[#e4e1ed]">Company</p>
+          <NavLink to="/" className="block hover:text-[#4cd7f6]">Home</NavLink>
+          <NavLink to="/features" className="block hover:text-[#4cd7f6]">Features</NavLink>
+          <NavLink to="/about" className="block hover:text-[#4cd7f6]">About</NavLink>
+          <NavLink to="/contact" className="block hover:text-[#4cd7f6]">Contact</NavLink>
+        </nav>
+        <div className="space-y-1 text-xs">
+          <p className="font-semibold uppercase tracking-wider text-[#e4e1ed]">Contact</p>
           <p>Email: text19013@gmail.com</p>
-          <p className="text-[11px] text-neutral-500">
+          <p className="pt-3 text-[11px] text-[#908fa0]">
             © {new Date().getFullYear()} Bookflow. All rights reserved.
           </p>
         </div>
