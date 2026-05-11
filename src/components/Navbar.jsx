@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react'
 import { NavLink } from 'react-router-dom'
+import { AnimatePresence, motion } from 'framer-motion'
 import { Button } from './Button'
 import bookflowLogo from '../assets/bookflow-logo.png'
 
@@ -34,10 +35,12 @@ export function Navbar() {
             to="/"
             className="flex items-center gap-0"
           >
-            <img
+            <motion.img
               src={bookflowLogo}
               alt="Bookflow logo"
               className="h-[4.6rem] w-[4.6rem] object-contain"
+              whileHover={{ scale: 1.08 }}
+              transition={{ type: 'spring', stiffness: 300 }}
             />
             <span className="-ml-1 text-2xl font-semibold tracking-tight text-[#e4e1ed]">
               Bookflow
@@ -51,48 +54,92 @@ export function Navbar() {
                 className={({ isActive }) =>
                   `${navLinkClasses} ${
                     isActive
-                      ? 'text-[#c0c1ff] border-b-2 border-[#c0c1ff]'
+                      ? 'text-[#c0c1ff]'
                       : ''
                   }`
                 }
               >
-                Home
+                {({ isActive }) => (
+                  <>
+                    <span>Home</span>
+                    {isActive && (
+                      <motion.span
+                        layoutId="nav-underline"
+                        className="absolute bottom-0 left-0 h-[2px] w-full rounded-full bg-[#c0c1ff]"
+                        transition={{ type: 'spring', stiffness: 500, damping: 35 }}
+                      />
+                    )}
+                  </>
+                )}
               </NavLink>
               <NavLink
                 to="/features"
                 className={({ isActive }) =>
                   `${navLinkClasses} ${
                     isActive
-                      ? 'text-[#c0c1ff] border-b-2 border-[#c0c1ff]'
+                      ? 'text-[#c0c1ff]'
                       : ''
                   }`
                 }
               >
-                Features
+                {({ isActive }) => (
+                  <>
+                    <span>Features</span>
+                    {isActive && (
+                      <motion.span
+                        layoutId="nav-underline"
+                        className="absolute bottom-0 left-0 h-[2px] w-full rounded-full bg-[#c0c1ff]"
+                        transition={{ type: 'spring', stiffness: 500, damping: 35 }}
+                      />
+                    )}
+                  </>
+                )}
               </NavLink>
               <NavLink
                 to="/about"
                 className={({ isActive }) =>
                   `${navLinkClasses} ${
                     isActive
-                      ? 'text-[#c0c1ff] border-b-2 border-[#c0c1ff]'
+                      ? 'text-[#c0c1ff]'
                       : ''
                   }`
                 }
               >
-                About
+                {({ isActive }) => (
+                  <>
+                    <span>About</span>
+                    {isActive && (
+                      <motion.span
+                        layoutId="nav-underline"
+                        className="absolute bottom-0 left-0 h-[2px] w-full rounded-full bg-[#c0c1ff]"
+                        transition={{ type: 'spring', stiffness: 500, damping: 35 }}
+                      />
+                    )}
+                  </>
+                )}
               </NavLink>
               <NavLink
                 to="/contact"
                 className={({ isActive }) =>
                   `${navLinkClasses} ${
                     isActive
-                      ? 'text-[#c0c1ff] border-b-2 border-[#c0c1ff]'
+                      ? 'text-[#c0c1ff]'
                       : ''
                   }`
                 }
               >
-                Contact
+                {({ isActive }) => (
+                  <>
+                    <span>Contact</span>
+                    {isActive && (
+                      <motion.span
+                        layoutId="nav-underline"
+                        className="absolute bottom-0 left-0 h-[2px] w-full rounded-full bg-[#c0c1ff]"
+                        transition={{ type: 'spring', stiffness: 500, damping: 35 }}
+                      />
+                    )}
+                  </>
+                )}
               </NavLink>
             </nav>
           </div>
@@ -145,10 +192,12 @@ export function Navbar() {
           </button>
 
           <NavLink to="/" className="flex flex-1 items-center justify-center gap-0">
-            <img
+            <motion.img
               src={bookflowLogo}
               alt="Bookflow logo"
               className="h-[3.3rem] w-[3.3rem] object-contain"
+              whileHover={{ scale: 1.08 }}
+              transition={{ type: 'spring', stiffness: 300 }}
             />
             <span className="-ml-1 text-lg font-semibold tracking-tight text-[#e4e1ed]">
               Bookflow
@@ -158,8 +207,14 @@ export function Navbar() {
           <div className="w-5" />
         </div>
 
-        {isMobileOpen && (
-          <div className="fixed inset-0 z-40 flex items-start justify-center bg-gradient-to-b from-slate-900/90 via-slate-950/95 to-black/90 backdrop-blur-md md:hidden">
+        <AnimatePresence>
+          {isMobileOpen && (
+            <motion.div
+              className="fixed inset-0 z-40 flex items-start justify-center bg-gradient-to-b from-slate-900/90 via-slate-950/95 to-black/90 backdrop-blur-md md:hidden"
+              initial={{ opacity: 0, y: -10 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -10 }}
+            >
             <div className="mt-16 w-full max-w-sm rounded-3xl border border-slate-700/70 bg-slate-900/80 px-6 py-6 shadow-[0_32px_80px_rgba(0,0,0,0.7)]">
               <nav className="space-y-2">
                 <NavLink
@@ -227,8 +282,9 @@ export function Navbar() {
                 </Button>
               </div>
             </div>
-          </div>
-        )}
+            </motion.div>
+          )}
+        </AnimatePresence>
       </div>
     </header>
   )
