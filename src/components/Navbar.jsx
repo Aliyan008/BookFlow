@@ -9,25 +9,18 @@ const navLinkClasses =
 
 export function Navbar() {
   const [isMobileOpen, setIsMobileOpen] = useState(false)
-  const [isScrolled, setIsScrolled] = useState(false)
 
   useEffect(() => {
-    const onScroll = () => {
-      setIsScrolled(window.scrollY > 8)
+    const originalOverflow = document.body.style.overflow
+    document.body.style.overflow = isMobileOpen ? 'hidden' : originalOverflow
+
+    return () => {
+      document.body.style.overflow = originalOverflow
     }
-    onScroll()
-    window.addEventListener('scroll', onScroll)
-    return () => window.removeEventListener('scroll', onScroll)
-  }, [])
+  }, [isMobileOpen])
 
   return (
-    <header
-      className={`fixed left-0 top-0 z-50 w-full border-b transition-all duration-300 ${
-        isScrolled
-          ? 'border-[#464554]/40 bg-[#13131b]/90 backdrop-blur-md'
-          : 'border-[#464554]/20 bg-[#13131b]/80 backdrop-blur-md'
-      }`}
-    >
+    <header className="fixed left-0 top-0 z-50 w-full border-b border-transparent bg-transparent">
       <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-1.5 sm:px-6 lg:px-8">
         {/* Desktop layout */}
         <div className="hidden flex-1 items-center justify-between md:flex">
@@ -155,12 +148,12 @@ export function Navbar() {
           </div>
         </div>
 
-        {/* Mobile layout */}
-        <div className="flex flex-1 items-center justify-between gap-3 md:hidden">
+        {/* Mobile layout — relative bar; menu absolute left; logo mx-auto (true horizontal center) */}
+        <div className="relative w-full flex-1 py-0 md:hidden">
           <button
             type="button"
             onClick={() => setIsMobileOpen((open) => !open)}
-            className="inline-flex items-center justify-center rounded-lg border border-[#464554] bg-[#1b1b23] p-2 text-[#e4e1ed]"
+            className="absolute left-0 top-1/2 z-10 inline-flex h-10 w-10 -translate-y-1/2 items-center justify-center rounded-lg border border-[#464554] bg-[#1b1b23] p-2 text-[#e4e1ed]"
             aria-label="Toggle navigation"
           >
             <svg
@@ -191,97 +184,118 @@ export function Navbar() {
             </svg>
           </button>
 
-          <NavLink to="/" className="flex flex-1 items-center justify-center gap-0">
-            <motion.img
-              src={bookflowLogo}
-              alt="Bookflow logo"
-              className="h-[3.3rem] w-[3.3rem] object-contain"
-              whileHover={{ scale: 1.08 }}
-              transition={{ type: 'spring', stiffness: 300 }}
-            />
-            <span className="-ml-1 text-lg font-semibold tracking-tight text-[#e4e1ed]">
-              Bookflow
-            </span>
-          </NavLink>
-
-          <div className="w-5" />
+          <div className="mx-auto flex w-fit items-center">
+            <NavLink to="/" className="flex items-center gap-0">
+              <motion.img
+                src={bookflowLogo}
+                alt="Bookflow logo"
+                className="h-[3.3rem] w-[3.3rem] object-contain"
+                whileHover={{ scale: 1.08 }}
+                transition={{ type: 'spring', stiffness: 300 }}
+              />
+              <span className="-ml-1 text-lg font-semibold tracking-tight text-[#e4e1ed]">
+                Bookflow
+              </span>
+            </NavLink>
+          </div>
         </div>
 
         <AnimatePresence>
           {isMobileOpen && (
             <motion.div
-              className="fixed inset-0 z-40 flex items-start justify-center bg-gradient-to-b from-slate-900/90 via-slate-950/95 to-black/90 backdrop-blur-md md:hidden"
-              initial={{ opacity: 0, y: -10 }}
+              className="fixed inset-0 z-50 flex min-h-screen flex-col bg-[#0d0d15]/98 backdrop-blur-md md:hidden"
+              initial={{ opacity: 0, y: -20 }}
               animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -10 }}
+              exit={{ opacity: 0, y: -20 }}
+              transition={{ duration: 0.25, ease: 'easeOut' }}
             >
-            <div className="mt-16 w-full max-w-sm rounded-3xl border border-slate-700/70 bg-slate-900/80 px-6 py-6 shadow-[0_32px_80px_rgba(0,0,0,0.7)]">
-              <nav className="space-y-2">
-                <NavLink
-                  to="/"
-                  onClick={() => setIsMobileOpen(false)}
-                  className={({ isActive }) =>
-                    `flex items-center justify-between rounded-2xl px-3 py-3 text-base ${
-                      isActive
-                        ? 'bg-indigo-600/90 text-white shadow-sm shadow-indigo-500/40'
-                        : 'text-slate-100 hover:bg-slate-800/80'
-                    } transition-all duration-200`
-                  }
-                >
-                  <span>Home</span>
+              <div className="flex items-center justify-between border-b border-[#464554]/40 px-4 py-2.5 sm:px-6">
+                <NavLink to="/" onClick={() => setIsMobileOpen(false)} className="flex items-center gap-0">
+                  <img
+                    src={bookflowLogo}
+                    alt="Bookflow logo"
+                    className="h-[3.3rem] w-[3.3rem] object-contain"
+                  />
+                  <span className="-ml-1 text-lg font-semibold tracking-tight text-[#e4e1ed]">
+                    Bookflow
+                  </span>
                 </NavLink>
-                <NavLink
-                  to="/features"
+                <button
+                  type="button"
                   onClick={() => setIsMobileOpen(false)}
-                  className={({ isActive }) =>
-                    `flex items-center justify-between rounded-2xl px-3 py-3 text-base ${
-                      isActive
-                        ? 'bg-indigo-600/90 text-white shadow-sm shadow-indigo-500/40'
-                        : 'text-slate-100 hover:bg-slate-800/80'
-                    } transition-all duration-200`
-                  }
+                  className="inline-flex h-10 w-10 items-center justify-center rounded-lg border border-[#464554] bg-[#1b1b23] text-[#e4e1ed]"
+                  aria-label="Close navigation"
                 >
-                  <span>Features</span>
-                </NavLink>
-                <NavLink
-                  to="/about"
-                  onClick={() => setIsMobileOpen(false)}
-                  className={({ isActive }) =>
-                    `flex items-center justify-between rounded-2xl px-3 py-3 text-base ${
-                      isActive
-                        ? 'bg-indigo-600/90 text-white shadow-sm shadow-indigo-500/40'
-                        : 'text-slate-100 hover:bg-slate-800/80'
-                    } transition-all duration-200`
-                  }
-                >
-                  <span>About</span>
-                </NavLink>
-                <NavLink
-                  to="/contact"
-                  onClick={() => setIsMobileOpen(false)}
-                  className={({ isActive }) =>
-                    `flex items-center justify-between rounded-2xl px-3 py-3 text-base ${
-                      isActive
-                        ? 'bg-indigo-600/90 text-white shadow-sm shadow-indigo-500/40'
-                        : 'text-slate-100 hover:bg-slate-800/80'
-                    } transition-all duration-200`
-                  }
-                >
-                  <span>Contact</span>
-                </NavLink>
-              </nav>
-
-              <div className="mt-4 border-t border-[#464554] pt-4">
-                <Button
-                  as={NavLink}
-                  to="/contact"
-                  onClick={() => setIsMobileOpen(false)}
-                  className="w-full justify-center"
-                >
-                  Request a Demo
-                </Button>
+                  <svg className="h-5 w-5" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path
+                      d="M6 18L18 6M6 6l12 12"
+                      stroke="currentColor"
+                      strokeWidth="2"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    />
+                  </svg>
+                </button>
               </div>
-            </div>
+
+              <div className="flex flex-1 items-center justify-center px-6">
+                <nav className="flex flex-col items-center justify-center gap-8 text-center">
+                  <NavLink
+                    to="/"
+                    onClick={() => setIsMobileOpen(false)}
+                    className={({ isActive }) =>
+                      `text-2xl font-semibold transition-colors ${
+                        isActive ? 'text-[#c0c1ff]' : 'text-[#e4e1ed] hover:text-[#c0c1ff]'
+                      }`
+                    }
+                  >
+                    Home
+                  </NavLink>
+                  <NavLink
+                    to="/features"
+                    onClick={() => setIsMobileOpen(false)}
+                    className={({ isActive }) =>
+                      `text-2xl font-semibold transition-colors ${
+                        isActive ? 'text-[#c0c1ff]' : 'text-[#e4e1ed] hover:text-[#c0c1ff]'
+                      }`
+                    }
+                  >
+                    Features
+                  </NavLink>
+                  <NavLink
+                    to="/about"
+                    onClick={() => setIsMobileOpen(false)}
+                    className={({ isActive }) =>
+                      `text-2xl font-semibold transition-colors ${
+                        isActive ? 'text-[#c0c1ff]' : 'text-[#e4e1ed] hover:text-[#c0c1ff]'
+                      }`
+                    }
+                  >
+                    About
+                  </NavLink>
+                  <NavLink
+                    to="/contact"
+                    onClick={() => setIsMobileOpen(false)}
+                    className={({ isActive }) =>
+                      `text-2xl font-semibold transition-colors ${
+                        isActive ? 'text-[#c0c1ff]' : 'text-[#e4e1ed] hover:text-[#c0c1ff]'
+                      }`
+                    }
+                  >
+                    Contact
+                  </NavLink>
+                </nav>
+              </div>
+
+              <div className="flex justify-center px-6 pb-8">
+                <NavLink
+                  to="/contact"
+                  onClick={() => setIsMobileOpen(false)}
+                  className="w-full max-w-xs"
+                >
+                  <Button className="w-full justify-center">Request a Demo</Button>
+                </NavLink>
+              </div>
             </motion.div>
           )}
         </AnimatePresence>
