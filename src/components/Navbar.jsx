@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import { NavLink } from 'react-router-dom'
 import { Button } from './Button'
+import bookflowLogo from '../assets/bookflow-logo.png'
 
 const navLinkClasses =
   'relative px-1 pb-1 text-sm font-medium text-[#c7c4d7] transition-all duration-300 hover:text-[#4cd7f6]'
@@ -34,12 +35,9 @@ export function Navbar() {
             className="flex items-center gap-0"
           >
             <img
-              src="/src/assets/bookflow-logo.png"
+              src={bookflowLogo}
               alt="Bookflow logo"
               className="h-[4.6rem] w-[4.6rem] object-contain"
-              onError={(e) => {
-                e.currentTarget.src = '/logo.svg'
-              }}
             />
             <span className="-ml-1 text-2xl font-semibold tracking-tight text-[#e4e1ed]">
               Bookflow
@@ -148,12 +146,9 @@ export function Navbar() {
 
           <NavLink to="/" className="flex flex-1 items-center justify-center gap-0">
             <img
-              src="/src/assets/bookflow-logo.png"
+              src={bookflowLogo}
               alt="Bookflow logo"
               className="h-[3.3rem] w-[3.3rem] object-contain"
-              onError={(e) => {
-                e.currentTarget.src = '/logo.svg'
-              }}
             />
             <span className="-ml-1 text-lg font-semibold tracking-tight text-[#e4e1ed]">
               Bookflow
