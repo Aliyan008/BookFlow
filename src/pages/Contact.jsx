@@ -1,7 +1,9 @@
-import { useState } from 'react'
+import { useCallback, useState } from 'react'
+import emailjs from '@emailjs/browser'
 import { motion } from 'framer-motion'
 import { Button } from '../components/Button'
 import { FadeUp } from '../components/FadeUp'
+import { Toast } from '../components/Toast'
 import metroMilanLogo from '../assets/metromilan.png'
 import franscentLogo from '../assets/franscent.png'
 
@@ -27,9 +29,60 @@ function FocusField({ children }) {
   )
 }
 
+const SUCCESS_MESSAGE = "Message sent! We'll get back to you within one business day."
+const ERROR_MESSAGE =
+  'Something went wrong. Please email us directly at getbookflow@gmail.com'
+
 export function Contact() {
+  const [isSubmitting, setIsSubmitting] = useState(false)
+  const [toast, setToast] = useState({ show: false, type: 'success', message: '' })
+
+  const handleCloseToast = useCallback(() => {
+    setToast((prev) => ({ ...prev, show: false }))
+  }, [])
+
+  const handleSubmit = async (e) => {
+    e.preventDefault()
+    setToast((prev) => ({ ...prev, show: false }))
+
+    const serviceId = import.meta.env.VITE_EMAILJS_SERVICE_ID
+    const templateId = import.meta.env.VITE_EMAILJS_TEMPLATE_ID
+    const publicKey = import.meta.env.VITE_EMAILJS_PUBLIC_KEY
+
+    const form = e.currentTarget
+    const fd = new FormData(form)
+
+    const templateParams = {
+      name: String(fd.get('name') ?? '').trim(),
+      email: String(fd.get('email') ?? '').trim(),
+      company: String(fd.get('company') ?? '').trim(),
+      team_size: String(fd.get('team_size') ?? '').trim(),
+      message: String(fd.get('message') ?? '').trim(),
+    }
+
+    setIsSubmitting(true)
+    try {
+      if (!serviceId || !templateId || !publicKey) {
+        throw new Error('Missing EmailJS configuration')
+      }
+      await emailjs.send(serviceId, templateId, templateParams, { publicKey })
+      setToast({ show: true, type: 'success', message: SUCCESS_MESSAGE })
+      form.reset()
+    } catch {
+      setToast({ show: true, type: 'error', message: ERROR_MESSAGE })
+    } finally {
+      setIsSubmitting(false)
+    }
+  }
+
   return (
     <div className="dot-grid min-h-[calc(100vh-4rem)] text-[#e4e1ed]">
+      <Toast
+        type={toast.type}
+        message={toast.message}
+        show={toast.show}
+        onClose={handleCloseToast}
+      />
       <main className="mx-auto w-full max-w-7xl px-6 pb-16 pt-36">
         <div className="grid gap-10 lg:grid-cols-2">
           <section className="space-y-8">
@@ -61,7 +114,7 @@ export function Contact() {
             <div className="grid gap-5 sm:grid-cols-2">
               <div>
                 <p className="text-xs uppercase tracking-[0.2em] text-[#908fa0]">Contact</p>
-                <p className="mt-1 text-sm">Email: text19013@gmail.com</p>
+                <p className="mt-1 text-sm">Email: getbookflow@gmail.com</p>
               </div>
               <div>
                 <p className="text-xs uppercase tracking-[0.2em] text-[#908fa0]">Typical response time</p>
@@ -77,9 +130,7 @@ export function Contact() {
               whileInView={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.65, ease: 'easeOut' }}
               viewport={{ once: true, amount: 0.2 }}
-              onSubmit={(e) => {
-                e.preventDefault()
-              }}
+              onSubmit={handleSubmit}
             >
               <div className="grid gap-4 sm:grid-cols-2">
                 <FocusField>
@@ -99,7 +150,7 @@ export function Contact() {
                 </FocusField>
                 <FocusField>
                   <label htmlFor="teamSize" className="text-xs text-[#c7c4d7]">Approx. field team size</label>
-                  <input id="teamSize" name="teamSize" type="text" placeholder="e.g. 25 order bookers" className="h-10 w-full rounded-lg border border-[#464554] bg-[#13131b] px-3 text-sm outline-none focus:border-[#c0c1ff]" />
+                  <input id="teamSize" name="team_size" type="text" placeholder="e.g. 25 order bookers" className="h-10 w-full rounded-lg border border-[#464554] bg-[#13131b] px-3 text-sm outline-none focus:border-[#c0c1ff]" />
                 </FocusField>
               </div>
 
@@ -110,7 +161,9 @@ export function Contact() {
 
               <div className="flex items-center justify-between gap-4">
                 <p className="text-[11px] text-[#908fa0]">We&apos;ll get back within one business day with next steps.</p>
-                <Button type="submit">Send Message</Button>
+                <Button type="submit" disabled={isSubmitting}>
+                  {isSubmitting ? 'Sending...' : 'Send Message'}
+                </Button>
               </div>
             </motion.form>
 

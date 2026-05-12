@@ -38,7 +38,7 @@ export function Footer() {
           </nav>
           <div className="space-y-1 text-xs">
             <p className="font-semibold uppercase tracking-wider text-[#e4e1ed]">Contact</p>
-            <p>Email: text19013@gmail.com</p>
+            <p>Email: getbookflow@gmail.com</p>
             <p className="pt-3 text-[11px] text-[#908fa0]">
               © {new Date().getFullYear()} Bookflow. All rights reserved.
             </p>
