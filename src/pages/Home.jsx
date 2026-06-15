@@ -93,11 +93,11 @@ export function Home() {
   }, [heroMobileScreens.length])
 
   return (
-    <div className="dot-grid min-h-[calc(100vh-4rem)] text-[#e4e1ed]">
-      <section className="relative mx-auto flex w-full max-w-7xl flex-col gap-10 px-6 pb-14 pt-36 lg:flex-row lg:items-center">
+    <div className="dot-grid min-h-[calc(100vh-4rem)] overflow-x-hidden text-[#e4e1ed]">
+      <section className="relative mx-auto flex w-full max-w-7xl flex-col gap-10 overflow-hidden px-6 pb-14 pt-24 lg:flex-row lg:items-center lg:pt-36">
         <div className="hero-glow left-1/2 top-20 -translate-x-1/2" />
         <div className="z-10 flex-1 space-y-6">
-          <h1 className="text-5xl font-bold tracking-tight">
+          <h1 className="text-3xl font-bold tracking-tight lg:text-5xl">
             <motion.span
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
@@ -138,11 +138,11 @@ export function Home() {
           animate={{ opacity: 1, x: 0 }}
           transition={{ delay: 0.2, duration: 0.7, ease: 'easeOut' }}
         >
-          <div className="glass-card rounded-xl p-2">
+          <div className="glass-card hidden rounded-xl p-2 lg:block">
             <img src={heroDashboard} alt="OrderBooker web dashboard" className="w-full rounded-lg object-cover opacity-95" />
           </div>
           <motion.div
-            className="glass-card absolute -bottom-8 -right-4 hidden w-28 rounded-xl p-1 sm:block"
+            className="glass-card absolute -bottom-8 right-0 hidden w-28 rounded-xl p-1 sm:block"
             animate={{ y: [0, -10, 0] }}
             transition={{ repeat: Infinity, duration: 3, ease: 'easeInOut' }}
           >
@@ -197,35 +197,161 @@ export function Home() {
         </div>
       </section>
 
-      <section className="mx-auto w-full max-w-7xl px-6 pb-16">
-        <div className="grid gap-8 lg:grid-cols-[1fr_2fr]">
-          <div className="space-y-2">
-            {showcaseFeatures.map((feature) => {
-              const isActive = feature.key === activeShowcase
-              return (
-                <button
-                  key={feature.key}
-                  type="button"
-                  onClick={() => setActiveShowcase(feature.key)}
-                  className={`w-full rounded-xl border p-4 text-left transition ${
-                    isActive ? 'border-[#c0c1ff]/70 bg-[#8083ff]/10' : 'border-[#464554] bg-[#1b1b23]/60 hover:bg-[#1f1f27]'
-                  }`}
-                >
-                  <p className="text-sm font-semibold">{feature.title}</p>
-                  <p className="text-xs text-[#908fa0]">{feature.caption}</p>
-                </button>
-              )
-            })}
-          </div>
-          <div className="glass-card rounded-xl p-2">
-            <AnimatePresence mode="wait">
-              {showcaseFeatures.filter((item) => item.key === activeShowcase).map((feature) => (
-                <motion.div key={feature.key} initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
-                  <img src={feature.image} alt={feature.title} className="h-[500px] w-full rounded-lg object-cover" />
-                </motion.div>
-              ))}
-            </AnimatePresence>
-          </div>
+      <section className="relative w-full overflow-hidden pb-16">
+        {/* Mobile & Tablet */}
+        <div className="lg:hidden">
+          {(() => {
+            const total = showcaseFeatures.length
+            const currentIndex = Math.max(
+              0,
+              showcaseFeatures.findIndex((feature) => feature.key === activeShowcase),
+            )
+            const prevIndex = (currentIndex - 1 + total) % total
+            const nextIndex = (currentIndex + 1) % total
+            const goPrev = () => setActiveShowcase(showcaseFeatures[prevIndex].key)
+            const goNext = () => setActiveShowcase(showcaseFeatures[nextIndex].key)
+            const activeFeature = showcaseFeatures[currentIndex]
+
+            return (
+              <>
+                <div className="relative mx-auto h-[260px] w-full overflow-hidden md:h-[380px]">
+                  <AnimatePresence mode="wait">
+                    <motion.div
+                      key={activeFeature.key}
+                      className="absolute inset-0 bg-[#0a0f1e]"
+                      initial={{ opacity: 0 }}
+                      animate={{ opacity: 1 }}
+                      exit={{ opacity: 0 }}
+                      transition={{ duration: 0.4, ease: 'easeInOut' }}
+                    >
+                      <img
+                        src={activeFeature.image}
+                        alt={activeFeature.title}
+                        className="h-full w-full rounded-lg object-contain"
+                      />
+                      <div className="absolute inset-x-0 bottom-0 rounded-b-lg bg-gradient-to-t from-black/75 via-black/40 to-transparent px-6 pb-5 pt-12">
+                        <p className="text-lg font-semibold text-white">{activeFeature.title}</p>
+                        <p className="mt-1 text-sm text-white/85">{activeFeature.caption}</p>
+                      </div>
+                    </motion.div>
+                  </AnimatePresence>
+                  <div className="absolute bottom-4 left-1/2 z-10 flex -translate-x-1/2 gap-3">
+                    <button
+                      type="button"
+                      onClick={goPrev}
+                      aria-label="Previous feature"
+                      className="flex h-10 w-10 items-center justify-center rounded-full border border-[#464554] bg-[#1b1b23]/90 text-[#e4e1ed] transition hover:border-[#c0c1ff]/70 hover:text-[#c0c1ff]"
+                    >
+                      <svg className="h-5 w-5" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M15 18l-6-6 6-6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+                      </svg>
+                    </button>
+                    <button
+                      type="button"
+                      onClick={goNext}
+                      aria-label="Next feature"
+                      className="flex h-10 w-10 items-center justify-center rounded-full border border-[#464554] bg-[#1b1b23]/90 text-[#e4e1ed] transition hover:border-[#c0c1ff]/70 hover:text-[#c0c1ff]"
+                    >
+                      <svg className="h-5 w-5" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M9 18l6-6-6-6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+                      </svg>
+                    </button>
+                  </div>
+                </div>
+                <div className="mt-4 flex justify-center gap-2">
+                  {showcaseFeatures.map((feature) => (
+                    <button
+                      key={feature.key}
+                      type="button"
+                      onClick={() => setActiveShowcase(feature.key)}
+                      aria-label={`Go to ${feature.title}`}
+                      className={`h-2 rounded-full bg-white transition-all ${
+                        feature.key === activeShowcase ? 'w-4 opacity-100' : 'w-2 opacity-40'
+                      }`}
+                    />
+                  ))}
+                </div>
+              </>
+            )
+          })()}
+        </div>
+
+        {/* Desktop */}
+        <div className="relative mx-auto hidden h-[500px] w-full overflow-hidden lg:block">
+          {(() => {
+            const total = showcaseFeatures.length
+            const currentIndex = Math.max(
+              0,
+              showcaseFeatures.findIndex((feature) => feature.key === activeShowcase),
+            )
+            const prevIndex = (currentIndex - 1 + total) % total
+            const nextIndex = (currentIndex + 1) % total
+            const goPrev = () => setActiveShowcase(showcaseFeatures[prevIndex].key)
+            const goNext = () => setActiveShowcase(showcaseFeatures[nextIndex].key)
+            const slides = [
+              { feature: showcaseFeatures[prevIndex], role: 'prev' },
+              { feature: showcaseFeatures[currentIndex], role: 'center' },
+              { feature: showcaseFeatures[nextIndex], role: 'next' },
+            ]
+            const slideAnimation = {
+              prev: { x: '-28%', scale: 0.75, opacity: 0.35, filter: 'blur(8px)' },
+              center: { x: '27%', scale: 1, opacity: 1, filter: 'blur(0px)' },
+              next: { x: '63%', scale: 0.75, opacity: 0.35, filter: 'blur(8px)' },
+            }
+
+            return (
+              <>
+                {slides.map(({ feature, role }) => (
+                  <motion.div
+                    key={feature.key}
+                    className={`absolute left-0 top-0 h-full w-[65%] bg-[#0a0f1e] ${role !== 'center' ? 'cursor-pointer' : ''}`}
+                    initial={false}
+                    animate={slideAnimation[role]}
+                    transition={{ duration: 0.4, ease: 'easeInOut' }}
+                    style={{ zIndex: role === 'center' ? 3 : 1 }}
+                    onClick={() => {
+                      if (role === 'prev') goPrev()
+                      if (role === 'next') goNext()
+                    }}
+                  >
+                    <img
+                      src={feature.image}
+                      alt={feature.title}
+                      className="h-full w-full rounded-lg object-contain"
+                    />
+                    {role === 'center' && (
+                      <div className="absolute inset-x-0 bottom-0 rounded-b-lg bg-gradient-to-t from-black/75 via-black/40 to-transparent px-6 pb-5 pt-12">
+                        <p className="text-lg font-semibold text-white">{feature.title}</p>
+                        <p className="mt-1 text-sm text-white/85">{feature.caption}</p>
+                      </div>
+                    )}
+                  </motion.div>
+                ))}
+                <div className="absolute bottom-4 left-1/2 z-10 flex -translate-x-1/2 gap-3">
+                  <button
+                    type="button"
+                    onClick={goPrev}
+                    aria-label="Previous feature"
+                    className="flex h-10 w-10 items-center justify-center rounded-full border border-[#464554] bg-[#1b1b23]/90 text-[#e4e1ed] transition hover:border-[#c0c1ff]/70 hover:text-[#c0c1ff]"
+                  >
+                    <svg className="h-5 w-5" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M15 18l-6-6 6-6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+                    </svg>
+                  </button>
+                  <button
+                    type="button"
+                    onClick={goNext}
+                    aria-label="Next feature"
+                    className="flex h-10 w-10 items-center justify-center rounded-full border border-[#464554] bg-[#1b1b23]/90 text-[#e4e1ed] transition hover:border-[#c0c1ff]/70 hover:text-[#c0c1ff]"
+                  >
+                    <svg className="h-5 w-5" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M9 18l6-6-6-6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+                    </svg>
+                  </button>
+                </div>
+              </>
+            )
+          })()}
         </div>
       </section>
 

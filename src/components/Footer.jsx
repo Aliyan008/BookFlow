@@ -35,6 +35,11 @@ export function Footer() {
                 Contact
               </motion.span>
             </NavLink>
+            <NavLink to="/privacy-policy" className="block">
+              <motion.span whileHover={{ color: '#4cd7f6' }} transition={{ duration: 0.2 }} className="block">
+                Privacy Policy
+              </motion.span>
+            </NavLink>
           </nav>
           <div className="space-y-1 text-xs">
             <p className="font-semibold uppercase tracking-wider text-[#e4e1ed]">Contact</p>

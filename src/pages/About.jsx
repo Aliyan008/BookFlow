@@ -86,26 +86,26 @@ export function About() {
               </p>
             </motion.div>
             <motion.div
-              className="glass-card rounded-xl p-2"
+              className="glass-card rounded-xl bg-[#0a0f1e] p-2"
               initial={{ opacity: 0, x: 40 }}
               whileInView={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.65, ease: 'easeOut' }}
               viewport={{ once: true, amount: 0.2 }}
             >
-              <img src={dashboardImage} alt="Mission visual" className="h-[280px] w-full rounded-lg object-cover" />
+              <img src={dashboardImage} alt="Mission visual" className="w-full rounded-lg object-contain max-h-[280px]" />
             </motion.div>
           </div>
         </section>
 
         <section className="grid items-center gap-10 md:grid-cols-2">
           <motion.div
-            className="glass-card rounded-xl p-2"
+            className="glass-card rounded-xl bg-[#0a0f1e] p-2"
             initial={{ opacity: 0, x: -40 }}
             whileInView={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.65, ease: 'easeOut' }}
             viewport={{ once: true, amount: 0.2 }}
           >
-            <img src={shopsImage} alt="Distribution focus" className="h-[320px] w-full rounded-lg object-cover" />
+            <img src={shopsImage} alt="Distribution focus" className="w-full rounded-lg object-contain max-h-[320px]" />
           </motion.div>
           <motion.div
             initial={{ opacity: 0, x: 40 }}
