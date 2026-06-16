@@ -21,7 +21,7 @@ function ScrollToTop() {
 function App() {
   return (
     <BrowserRouter>
-      <div className="flex min-h-screen flex-col bg-[#0A0F1E] text-[#e4e1ed]">
+      <div className="flex min-h-screen flex-col bg-[#F4F4F8] text-[#0d0d15]">
         <Navbar />
         <main className="flex-1">
           <ScrollToTop />

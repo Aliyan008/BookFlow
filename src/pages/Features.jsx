@@ -3,6 +3,7 @@ import { motion, useInView } from 'framer-motion'
 import { NavLink } from 'react-router-dom'
 import { Button } from '../components/Button'
 import { FadeUp } from '../components/FadeUp'
+import { useTilt } from '../hooks/useTilt'
 
 const stats = [
   { label: 'App Roles', value: 4 },
@@ -76,19 +77,34 @@ function CountUpStat({ value, suffix = '' }) {
   )
 }
 
+function TiltCard({ children, className }) {
+  const { ref, rotateX, rotateY, onMouseMove, onMouseLeave } = useTilt(8)
+  return (
+    <motion.div
+      ref={ref}
+      onMouseMove={onMouseMove}
+      onMouseLeave={onMouseLeave}
+      style={{ rotateX, rotateY, transformPerspective: 800 }}
+      className={className}
+    >
+      {children}
+    </motion.div>
+  )
+}
+
 export function Features() {
   return (
-    <div className="dot-grid min-h-[calc(100vh-4rem)] text-[#e4e1ed]">
+    <div className="dot-grid min-h-[calc(100vh-4rem)] text-[#0d0d15]">
       <main className="mx-auto w-full max-w-7xl px-6 pb-16 pt-36">
         <section className="text-center">
           <p className="mx-auto inline-flex rounded-full border border-[#8083ff]/30 bg-[#8083ff]/10 px-4 py-1 text-xs font-medium text-[#c0c1ff]">
             ALL-IN-ONE SOLUTION
           </p>
           <FadeUp delay={0}>
-            <h1 className="mt-5 text-5xl font-bold tracking-tight">Everything your field team needs</h1>
+            <h1 className="mt-5 text-4xl lg:text-5xl font-extrabold tracking-tight leading-tight">Everything your field team needs</h1>
           </FadeUp>
           <FadeUp delay={0.15}>
-            <p className="mx-auto mt-4 max-w-2xl text-[#c7c4d7]">
+            <p className="mx-auto mt-4 max-w-xl text-base text-[#6b6b7e]">
               OrderBooker brings offline orders, GPS attendance, distributor execution and daily reporting into one app that works in the real world.
             </p>
           </FadeUp>
@@ -106,7 +122,7 @@ export function Features() {
               {stats.map((stat) => (
                 <div key={stat.label}>
                   <CountUpStat value={stat.value} suffix={stat.suffix} />
-                  <p className="text-xs uppercase tracking-wider text-[#908fa0]">{stat.label}</p>
+                  <p className="text-xs uppercase tracking-wider text-[#6b6b7e]">{stat.label}</p>
                 </div>
               ))}
             </div>
@@ -118,18 +134,18 @@ export function Features() {
             <div key={row.label}>
               <FadeUp>
                 <div className="mb-6 flex items-center gap-3">
-                  <div className="h-px flex-1 bg-[#464554]/70" />
-                  <h2 className={`text-xs font-semibold tracking-[0.22em] ${row.accent}`}>{row.label}</h2>
-                  <div className="h-px flex-1 bg-[#464554]/70" />
+                  <div className="h-px flex-1 bg-[#464554]/40" />
+                  <h2 className={`text-[11px] font-bold tracking-[0.25em] ${row.accent}`}>{row.label}</h2>
+                  <div className="h-px flex-1 bg-[#464554]/40" />
                 </div>
               </FadeUp>
-              <div className="grid gap-5 md:grid-cols-3">
+              <div className="grid items-stretch gap-5 md:grid-cols-3">
                 {row.items.map(([title, body], index) => (
-                  <FadeUp key={title} delay={index * 0.1}>
-                    <motion.article whileHover={{ y: -4 }} className="glass-card rounded-2xl p-6">
-                      <h3 className="text-lg font-semibold">{title}</h3>
-                      <p className="mt-3 text-sm text-[#c7c4d7]">{body}</p>
-                    </motion.article>
+                  <FadeUp key={title} delay={index * 0.1} variant="scaleUp" className="h-full">
+                    <TiltCard className="glass-card rounded-2xl p-6 h-full flex flex-col">
+                      <h3 className="text-base font-semibold leading-snug">{title}</h3>
+                      <p className="mt-3 text-sm text-[#6b6b7e] leading-relaxed flex-1">{body}</p>
+                    </TiltCard>
                   </FadeUp>
                 ))}
               </div>

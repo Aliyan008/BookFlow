@@ -76,7 +76,7 @@ export function Contact() {
   }
 
   return (
-    <div className="dot-grid min-h-[calc(100vh-4rem)] text-[#e4e1ed]">
+    <div className="dot-grid min-h-[calc(100vh-4rem)] text-[#0d0d15]">
       <Toast
         type={toast.type}
         message={toast.message}
@@ -92,20 +92,20 @@ export function Contact() {
               </p>
             </FadeUp>
             <FadeUp delay={0.12}>
-              <h1 className="text-5xl font-bold">Let&apos;s talk about your field sales.</h1>
+              <h1 className="text-4xl lg:text-5xl font-extrabold tracking-tight leading-tight">Let&apos;s talk about your field sales.</h1>
             </FadeUp>
             <FadeUp delay={0.24}>
-              <p className="max-w-lg text-[#c7c4d7]">
+              <p className="max-w-md text-base text-[#6b6b7e] leading-relaxed">
                 Share a few details about your company and we&apos;ll schedule a short demo of Bookflow tailored to your routes, distributors and field team size.
               </p>
             </FadeUp>
 
             <div>
-              <h2 className="text-lg font-semibold">What to expect</h2>
-              <ul className="mt-4 space-y-3 text-sm text-[#c7c4d7]">
+              <h2 className="text-base font-semibold text-[#0d0d15]">What to expect</h2>
+              <ul className="mt-4 space-y-3 text-sm text-[#4a4a5a]">
                 {expectationItems.map((item, index) => (
                   <FadeUp key={item} delay={index * 0.1}>
-                    <li className="glass-card rounded-lg px-4 py-3">{item}</li>
+                    <li className="glass-card rounded-lg px-4 py-3 text-sm text-[#6b6b7e] leading-relaxed border-l-2 border-[#c0c1ff]/30">{item}</li>
                   </FadeUp>
                 ))}
               </ul>
@@ -113,11 +113,11 @@ export function Contact() {
 
             <div className="grid gap-5 sm:grid-cols-2">
               <div>
-                <p className="text-xs uppercase tracking-[0.2em] text-[#908fa0]">Contact</p>
+                <p className="text-xs uppercase tracking-[0.2em] text-[#6b6b7e]">Contact</p>
                 <p className="mt-1 text-sm">Email: getbookflow@gmail.com</p>
               </div>
               <div>
-                <p className="text-xs uppercase tracking-[0.2em] text-[#908fa0]">Typical response time</p>
+                <p className="text-xs uppercase tracking-[0.2em] text-[#6b6b7e]">Typical response time</p>
                 <p className="mt-1 text-sm">Within one business day.</p>
               </div>
             </div>
@@ -125,7 +125,7 @@ export function Contact() {
 
           <section>
             <motion.form
-              className="glass-card space-y-5 rounded-xl p-6"
+              className="space-y-5 rounded-2xl p-0 lg:p-0"
               initial={{ opacity: 0, x: 40 }}
               whileInView={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.65, ease: 'easeOut' }}
@@ -134,41 +134,41 @@ export function Contact() {
             >
               <div className="grid gap-4 sm:grid-cols-2">
                 <FocusField>
-                  <label htmlFor="name" className="text-xs text-[#c7c4d7]">Name</label>
-                  <input id="name" name="name" type="text" required placeholder="Your full name" className="h-10 w-full rounded-lg border border-[#464554] bg-[#13131b] px-3 text-sm outline-none focus:border-[#c0c1ff]" />
+                  <label htmlFor="name" className="text-xs font-medium text-[#6b6b7e]">Name</label>
+                  <input id="name" name="name" type="text" required placeholder="Your full name" className="h-10 w-full rounded-lg border border-[#d0d0dc] bg-[#f0f0f6] px-3 text-sm outline-none transition-colors duration-200 focus:border-[#8083ff] focus:ring-1 focus:ring-[#8083ff]/20" />
                 </FocusField>
                 <FocusField>
-                  <label htmlFor="email" className="text-xs text-[#c7c4d7]">Work email</label>
-                  <input id="email" name="email" type="email" required placeholder="you@company.com" className="h-10 w-full rounded-lg border border-[#464554] bg-[#13131b] px-3 text-sm outline-none focus:border-[#c0c1ff]" />
+                  <label htmlFor="email" className="text-xs font-medium text-[#6b6b7e]">Work email</label>
+                  <input id="email" name="email" type="email" required placeholder="you@company.com" className="h-10 w-full rounded-lg border border-[#d0d0dc] bg-[#f0f0f6] px-3 text-sm outline-none transition-colors duration-200 focus:border-[#8083ff] focus:ring-1 focus:ring-[#8083ff]/20" />
                 </FocusField>
               </div>
 
               <div className="grid gap-4 sm:grid-cols-2">
                 <FocusField>
-                  <label htmlFor="company" className="text-xs text-[#c7c4d7]">Company</label>
-                  <input id="company" name="company" type="text" required placeholder="Company or distributor name" className="h-10 w-full rounded-lg border border-[#464554] bg-[#13131b] px-3 text-sm outline-none focus:border-[#c0c1ff]" />
+                  <label htmlFor="company" className="text-xs font-medium text-[#6b6b7e]">Company</label>
+                  <input id="company" name="company" type="text" required placeholder="Company or distributor name" className="h-10 w-full rounded-lg border border-[#d0d0dc] bg-[#f0f0f6] px-3 text-sm outline-none transition-colors duration-200 focus:border-[#8083ff] focus:ring-1 focus:ring-[#8083ff]/20" />
                 </FocusField>
                 <FocusField>
-                  <label htmlFor="teamSize" className="text-xs text-[#c7c4d7]">Approx. field team size</label>
-                  <input id="teamSize" name="team_size" type="text" placeholder="e.g. 25 order bookers" className="h-10 w-full rounded-lg border border-[#464554] bg-[#13131b] px-3 text-sm outline-none focus:border-[#c0c1ff]" />
+                  <label htmlFor="teamSize" className="text-xs font-medium text-[#6b6b7e]">Approx. field team size</label>
+                  <input id="teamSize" name="team_size" type="text" placeholder="e.g. 25 order bookers" className="h-10 w-full rounded-lg border border-[#d0d0dc] bg-[#f0f0f6] px-3 text-sm outline-none transition-colors duration-200 focus:border-[#8083ff] focus:ring-1 focus:ring-[#8083ff]/20" />
                 </FocusField>
               </div>
 
               <FocusField>
-                <label htmlFor="message" className="text-xs text-[#c7c4d7]">Message</label>
-                <textarea id="message" name="message" rows={4} placeholder="Tell us about your routes, distributors, and what you want to improve." className="w-full rounded-lg border border-[#464554] bg-[#13131b] px-3 py-2 text-sm outline-none focus:border-[#c0c1ff]" />
+                <label htmlFor="message" className="text-xs font-medium text-[#6b6b7e]">Message</label>
+                <textarea id="message" name="message" rows={4} placeholder="Tell us about your routes, distributors, and what you want to improve." className="w-full rounded-lg border border-[#d0d0dc] bg-[#f0f0f6] px-3 py-2 text-sm outline-none transition-colors duration-200 focus:border-[#8083ff] focus:ring-1 focus:ring-[#8083ff]/20" />
               </FocusField>
 
               <div className="flex items-center justify-between gap-4">
-                <p className="text-[11px] text-[#908fa0]">We&apos;ll get back within one business day with next steps.</p>
+                <p className="text-[11px] text-[#6b6b7e]">We&apos;ll get back within one business day with next steps.</p>
                 <Button type="submit" disabled={isSubmitting}>
                   {isSubmitting ? 'Sending...' : 'Send Message'}
                 </Button>
               </div>
             </motion.form>
 
-            <div className="glass-card mt-6 rounded-xl p-5">
-              <p className="mb-4 text-center text-xs uppercase tracking-[0.22em] text-[#908fa0]">Trusted Brands</p>
+            <div className="mt-6 rounded-xl border border-[#d0d0dc]/40 bg-white p-5">
+              <p className="mb-4 text-center text-xs uppercase tracking-[0.22em] text-[#6b6b7e]">Trusted Brands</p>
               <div className="flex items-center justify-center gap-6">
                 <div className="flex items-center gap-2">
                   <img src={metroMilanLogo} alt="Metro Milan logo" className="h-8 w-8 rounded bg-white p-1 object-contain" />

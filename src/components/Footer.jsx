@@ -1,56 +1,54 @@
 import { NavLink } from 'react-router-dom'
-import { motion } from 'framer-motion'
-import { FadeUp } from './FadeUp'
 
 export function Footer() {
   return (
-    <footer className="border-t border-[#464554]/40 bg-[#0d0d15]">
-      <FadeUp>
-        <div className="mx-auto grid max-w-7xl gap-8 px-6 py-10 text-sm text-[#c7c4d7] md:grid-cols-4">
-          <div className="md:col-span-2">
-            <p className="text-lg font-semibold text-[#e4e1ed]">Bookflow</p>
-            <p className="mt-2 max-w-sm text-xs text-[#908fa0]">
+    <footer className="border-t border-[#d0d0dc]/60 bg-[#ebebf2]">
+      <div className="mx-auto max-w-7xl px-6 pt-12 pb-8">
+        <div className="grid gap-8 md:grid-cols-3">
+          <div>
+            <p className="text-lg font-bold text-[#0d0d15]">Bookflow</p>
+            <p className="mt-2 max-w-[200px] text-xs leading-relaxed text-[#9999aa]">
               High-performance distribution software for the next generation of field sales teams.
             </p>
-          </div>
-          <nav className="space-y-1 text-xs">
-            <p className="font-semibold uppercase tracking-wider text-[#e4e1ed]">Company</p>
-            <NavLink to="/" className="block">
-              <motion.span whileHover={{ color: '#4cd7f6' }} transition={{ duration: 0.2 }} className="block">
-                Home
-              </motion.span>
-            </NavLink>
-            <NavLink to="/features" className="block">
-              <motion.span whileHover={{ color: '#4cd7f6' }} transition={{ duration: 0.2 }} className="block">
-                Features
-              </motion.span>
-            </NavLink>
-            <NavLink to="/about" className="block">
-              <motion.span whileHover={{ color: '#4cd7f6' }} transition={{ duration: 0.2 }} className="block">
-                About
-              </motion.span>
-            </NavLink>
-            <NavLink to="/contact" className="block">
-              <motion.span whileHover={{ color: '#4cd7f6' }} transition={{ duration: 0.2 }} className="block">
-                Contact
-              </motion.span>
-            </NavLink>
-            <NavLink to="/privacy-policy" className="block">
-              <motion.span whileHover={{ color: '#4cd7f6' }} transition={{ duration: 0.2 }} className="block">
-                Privacy Policy
-              </motion.span>
-            </NavLink>
-          </nav>
-          <div className="space-y-1 text-xs">
-            <p className="font-semibold uppercase tracking-wider text-[#e4e1ed]">Contact</p>
-            <p>Email: getbookflow@gmail.com</p>
-            <p className="pt-3 text-[11px] text-[#908fa0]">
+            <p className="mt-3 text-[11px] text-[#9999aa]">
               © {new Date().getFullYear()} Bookflow. All rights reserved.
             </p>
           </div>
+          <div>
+            <p className="mb-3 text-[10px] font-bold uppercase tracking-[0.2em] text-[#9999aa]">COMPANY</p>
+            <NavLink to="/" className="block py-0.5 text-xs text-[#6b6b7e] transition-colors duration-200 hover:text-[#0d0d15]">
+              Home
+            </NavLink>
+            <NavLink to="/features" className="block py-0.5 text-xs text-[#6b6b7e] transition-colors duration-200 hover:text-[#0d0d15]">
+              Features
+            </NavLink>
+            <NavLink to="/about" className="block py-0.5 text-xs text-[#6b6b7e] transition-colors duration-200 hover:text-[#0d0d15]">
+              About
+            </NavLink>
+            <NavLink to="/contact" className="block py-0.5 text-xs text-[#6b6b7e] transition-colors duration-200 hover:text-[#0d0d15]">
+              Contact
+            </NavLink>
+          </div>
+          <div>
+            <p className="mb-3 text-[10px] font-bold uppercase tracking-[0.2em] text-[#9999aa]">LEGAL</p>
+            <NavLink to="/privacy-policy" className="block py-0.5 text-xs text-[#6b6b7e] transition-colors duration-200 hover:text-[#0d0d15]">
+              Privacy Policy
+            </NavLink>
+            <p className="mt-4 text-xs text-[#6b6b7e]">getbookflow@gmail.com</p>
+          </div>
         </div>
-      </FadeUp>
+      </div>
+      <div className="relative">
+        <div className="relative h-64 overflow-hidden select-none pointer-events-none">
+          <p className="absolute -bottom-8 left-0 text-[20rem] font-black leading-none tracking-tight text-[#8083ff]/[0.09] whitespace-nowrap">
+            Bookflow
+          </p>
+        </div>
+        <div
+          className="absolute bottom-0 left-0 right-0 h-24 pointer-events-none"
+          style={{ background: 'linear-gradient(to bottom, transparent, #ebebf2)' }}
+        />
+      </div>
     </footer>
   )
 }
-

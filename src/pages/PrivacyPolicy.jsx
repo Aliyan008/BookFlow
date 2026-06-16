@@ -2,26 +2,26 @@ import { FadeUp } from '../components/FadeUp'
 
 function Section({ id, title, children }) {
   return (
-    <section id={id} className="border-t border-[#464554]/40 pt-8 first:border-t-0 first:pt-0">
-      <h2 className="text-xl font-semibold text-[#e4e1ed]">{title}</h2>
-      <div className="mt-4 space-y-4 text-sm leading-relaxed text-[#c7c4d7]">{children}</div>
+    <section id={id} className="border-t border-[#d0d0dc]/40 pt-8 first:border-t-0 first:pt-0">
+      <h2 className="text-xl font-semibold text-[#0d0d15]">{title}</h2>
+      <div className="mt-4 space-y-4 text-sm leading-relaxed text-[#4a4a5a]">{children}</div>
     </section>
   )
 }
 
 function SubHeading({ children }) {
-  return <h3 className="text-base font-semibold text-[#e4e1ed]">{children}</h3>
+  return <h3 className="text-base font-semibold text-[#0d0d15]">{children}</h3>
 }
 
 export function PrivacyPolicy() {
   return (
-    <div className="dot-grid min-h-[calc(100vh-4rem)] text-[#e4e1ed]">
+    <div className="dot-grid min-h-[calc(100vh-4rem)] text-[#0d0d15]">
       <main className="mx-auto w-full max-w-3xl px-6 pb-16 pt-36">
         <FadeUp>
           <header className="mb-10">
             <p className="text-xs font-medium uppercase tracking-[0.2em] text-[#4cd7f6]">Legal</p>
             <h1 className="mt-3 text-4xl font-bold">Privacy Policy</h1>
-            <p className="mt-4 text-[#c7c4d7]">
+            <p className="mt-4 text-[#4a4a5a]">
               This Privacy Policy explains how Bookflow collects, uses, stores, and protects personal
               information when you use our field sales and distribution platform.
             </p>
@@ -29,17 +29,17 @@ export function PrivacyPolicy() {
         </FadeUp>
 
         <FadeUp delay={0.08}>
-          <div className="glass-card mb-10 rounded-xl p-6 text-sm text-[#c7c4d7]">
-            <p className="font-semibold text-[#e4e1ed]">About Bookflow</p>
+          <div className="glass-card mb-10 rounded-xl p-6 text-sm text-[#4a4a5a]">
+            <p className="font-semibold text-[#0d0d15]">About Bookflow</p>
             <ul className="mt-3 space-y-1.5">
               <li>
-                <span className="text-[#908fa0]">Contact:</span>{' '}
+                <span className="text-[#6b6b7e]">Contact:</span>{' '}
                 <a href="mailto:getbookflow@gmail.com" className="text-[#4cd7f6] hover:underline">
                   getbookflow@gmail.com
                 </a>
               </li>
               <li>
-                <span className="text-[#908fa0]">Website:</span>{' '}
+                <span className="text-[#6b6b7e]">Website:</span>{' '}
                 <a
                   href="https://bookflow-mu.vercel.app"
                   target="_blank"
@@ -50,7 +50,7 @@ export function PrivacyPolicy() {
                 </a>
               </li>
               <li>
-                <span className="text-[#908fa0]">Last Updated:</span> June 2025
+                <span className="text-[#6b6b7e]">Last Updated:</span> June 2025
               </li>
             </ul>
           </div>
@@ -68,11 +68,11 @@ export function PrivacyPolicy() {
             <p>This Privacy Policy applies to two types of users:</p>
             <ul className="list-disc space-y-2 pl-5">
               <li>
-                <strong className="text-[#e4e1ed]">Business Clients</strong> — companies that subscribe
+                <strong className="text-[#0d0d15]">Business Clients</strong> — companies that subscribe
                 to Bookflow, manage the account, and are responsible for adding their team.
               </li>
               <li>
-                <strong className="text-[#e4e1ed]">End Users</strong> — sales reps employed by the business
+                <strong className="text-[#0d0d15]">End Users</strong> — sales reps employed by the business
                 client who use the Bookflow mobile app on the ground.
               </li>
             </ul>
@@ -121,7 +121,7 @@ export function PrivacyPolicy() {
             </p>
             <ul className="list-disc space-y-2 pl-5">
               <li>
-                Location is collected <strong className="text-[#e4e1ed]">only</strong> when a sales rep is
+                Location is collected <strong className="text-[#0d0d15]">only</strong> when a sales rep is
                 actively checked in to a work session.
               </li>
               <li>
@@ -220,8 +220,8 @@ export function PrivacyPolicy() {
             </p>
           </Section>
 
-          <div className="border-t border-[#464554]/40 pt-8">
-            <p className="text-xs text-[#908fa0]">
+          <div className="border-t border-[#d0d0dc]/40 pt-8">
+            <p className="text-xs text-[#6b6b7e]">
               This Privacy Policy is governed by the laws of Pakistan.
             </p>
           </div>

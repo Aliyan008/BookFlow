@@ -5,7 +5,7 @@ import { Button } from './Button'
 import bookflowLogo from '../assets/bookflow-logo.png'
 
 const navLinkClasses =
-  'relative px-1 pb-1 text-sm font-medium text-[#c7c4d7] transition-all duration-300 hover:text-[#4cd7f6]'
+  'relative px-1 pb-1 text-sm font-medium text-[#6b6b7e] transition-all duration-300 hover:text-[#0d0d15]'
 
 export function Navbar() {
   const [isMobileOpen, setIsMobileOpen] = useState(false)
@@ -20,7 +20,7 @@ export function Navbar() {
   }, [isMobileOpen])
 
   return (
-    <header className="fixed left-0 top-0 z-50 w-full border-b border-transparent bg-transparent">
+    <header className="fixed left-0 top-0 z-50 w-full border-b border-[#d0d0dc]/60 bg-white/80 backdrop-blur-md">
       <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-1.5 sm:px-6 lg:px-8">
         {/* Desktop layout */}
         <div className="hidden flex-1 items-center justify-between md:flex">
@@ -31,11 +31,11 @@ export function Navbar() {
             <motion.img
               src={bookflowLogo}
               alt="Bookflow logo"
-              className="h-[4.6rem] w-[4.6rem] object-contain"
+              className="h-14 w-14 object-contain"
               whileHover={{ scale: 1.08 }}
               transition={{ type: 'spring', stiffness: 300 }}
             />
-            <span className="-ml-1 text-2xl font-semibold tracking-tight text-[#e4e1ed]">
+            <span className="-ml-1 text-xl font-bold tracking-tight text-[#0d0d15]">
               Bookflow
             </span>
           </NavLink>
@@ -47,7 +47,7 @@ export function Navbar() {
                 className={({ isActive }) =>
                   `${navLinkClasses} ${
                     isActive
-                      ? 'text-[#c0c1ff]'
+                      ? 'text-[#0d0d15]'
                       : ''
                   }`
                 }
@@ -70,7 +70,7 @@ export function Navbar() {
                 className={({ isActive }) =>
                   `${navLinkClasses} ${
                     isActive
-                      ? 'text-[#c0c1ff]'
+                      ? 'text-[#0d0d15]'
                       : ''
                   }`
                 }
@@ -93,7 +93,7 @@ export function Navbar() {
                 className={({ isActive }) =>
                   `${navLinkClasses} ${
                     isActive
-                      ? 'text-[#c0c1ff]'
+                      ? 'text-[#0d0d15]'
                       : ''
                   }`
                 }
@@ -116,7 +116,7 @@ export function Navbar() {
                 className={({ isActive }) =>
                   `${navLinkClasses} ${
                     isActive
-                      ? 'text-[#c0c1ff]'
+                      ? 'text-[#0d0d15]'
                       : ''
                   }`
                 }
@@ -153,7 +153,7 @@ export function Navbar() {
           <button
             type="button"
             onClick={() => setIsMobileOpen((open) => !open)}
-            className="absolute left-0 top-1/2 z-10 inline-flex h-10 w-10 -translate-y-1/2 items-center justify-center rounded-lg border border-[#464554] bg-[#1b1b23] p-2 text-[#e4e1ed]"
+            className="absolute left-0 top-1/2 z-10 inline-flex h-10 w-10 -translate-y-1/2 items-center justify-center rounded-lg border border-[#d0d0dc] bg-[#e8e8f0] p-2 text-[#0d0d15]"
             aria-label="Toggle navigation"
           >
             <svg
@@ -193,7 +193,7 @@ export function Navbar() {
                 whileHover={{ scale: 1.08 }}
                 transition={{ type: 'spring', stiffness: 300 }}
               />
-              <span className="-ml-1 text-lg font-semibold tracking-tight text-[#e4e1ed]">
+              <span className="-ml-1 text-lg font-semibold tracking-tight text-[#0d0d15]">
                 Bookflow
               </span>
             </NavLink>
@@ -203,27 +203,27 @@ export function Navbar() {
         <AnimatePresence>
           {isMobileOpen && (
             <motion.div
-              className="fixed inset-0 z-50 flex min-h-screen flex-col bg-[#0d0d15]/98 backdrop-blur-md md:hidden"
+              className="fixed inset-0 z-50 flex min-h-screen flex-col bg-white/98 backdrop-blur-md md:hidden"
               initial={{ opacity: 0, y: -20 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -20 }}
               transition={{ duration: 0.25, ease: 'easeOut' }}
             >
-              <div className="flex items-center justify-between border-b border-[#464554]/40 px-4 py-2.5 sm:px-6">
+              <div className="flex items-center justify-between border-b border-[#d0d0dc]/40 px-4 py-2.5 sm:px-6">
                 <NavLink to="/" onClick={() => setIsMobileOpen(false)} className="flex items-center gap-0">
                   <img
                     src={bookflowLogo}
                     alt="Bookflow logo"
                     className="h-[3.3rem] w-[3.3rem] object-contain"
                   />
-                  <span className="-ml-1 text-lg font-semibold tracking-tight text-[#e4e1ed]">
+                  <span className="-ml-1 text-lg font-semibold tracking-tight text-[#0d0d15]">
                     Bookflow
                   </span>
                 </NavLink>
                 <button
                   type="button"
                   onClick={() => setIsMobileOpen(false)}
-                  className="inline-flex h-10 w-10 items-center justify-center rounded-lg border border-[#464554] bg-[#1b1b23] text-[#e4e1ed]"
+                  className="inline-flex h-10 w-10 items-center justify-center rounded-lg border border-[#d0d0dc] bg-[#e8e8f0] text-[#0d0d15]"
                   aria-label="Close navigation"
                 >
                   <svg className="h-5 w-5" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -245,7 +245,7 @@ export function Navbar() {
                     onClick={() => setIsMobileOpen(false)}
                     className={({ isActive }) =>
                       `text-2xl font-semibold transition-colors ${
-                        isActive ? 'text-[#c0c1ff]' : 'text-[#e4e1ed] hover:text-[#c0c1ff]'
+                        isActive ? 'text-[#c0c1ff]' : 'text-[#0d0d15] hover:text-[#c0c1ff]'
                       }`
                     }
                   >
@@ -256,7 +256,7 @@ export function Navbar() {
                     onClick={() => setIsMobileOpen(false)}
                     className={({ isActive }) =>
                       `text-2xl font-semibold transition-colors ${
-                        isActive ? 'text-[#c0c1ff]' : 'text-[#e4e1ed] hover:text-[#c0c1ff]'
+                        isActive ? 'text-[#c0c1ff]' : 'text-[#0d0d15] hover:text-[#c0c1ff]'
                       }`
                     }
                   >
@@ -267,7 +267,7 @@ export function Navbar() {
                     onClick={() => setIsMobileOpen(false)}
                     className={({ isActive }) =>
                       `text-2xl font-semibold transition-colors ${
-                        isActive ? 'text-[#c0c1ff]' : 'text-[#e4e1ed] hover:text-[#c0c1ff]'
+                        isActive ? 'text-[#c0c1ff]' : 'text-[#0d0d15] hover:text-[#c0c1ff]'
                       }`
                     }
                   >
@@ -278,7 +278,7 @@ export function Navbar() {
                     onClick={() => setIsMobileOpen(false)}
                     className={({ isActive }) =>
                       `text-2xl font-semibold transition-colors ${
-                        isActive ? 'text-[#c0c1ff]' : 'text-[#e4e1ed] hover:text-[#c0c1ff]'
+                        isActive ? 'text-[#c0c1ff]' : 'text-[#0d0d15] hover:text-[#c0c1ff]'
                       }`
                     }
                   >

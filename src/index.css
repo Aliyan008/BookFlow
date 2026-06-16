@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&display=swap');
 @import "tailwindcss";
 
 html,
@@ -8,10 +9,11 @@ body,
 
 body {
   @apply antialiased;
-  font-family: Inter, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-  background-color: #0a0f1e;
-  background-image: radial-gradient(circle at 2px 2px, rgba(31, 41, 55, 0.4) 1px, transparent 0);
-  background-size: 24px 24px;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-feature-settings: "cv02","cv03","cv04","cv11";
+  letter-spacing: -0.01em;
+  line-height: 1.6;
+  background-color: #F4F4F8;
   color: #e4e1ed;
 }
 
@@ -57,21 +59,21 @@ body {
 }
 
 .dot-grid {
-  background-image: radial-gradient(circle, rgba(144, 143, 160, 0.18) 1px, transparent 1px);
+  background-image: radial-gradient(circle, rgba(100, 100, 120, 0.12) 1px, transparent 1px);
   background-size: 24px 24px;
 }
 
 .glass-card {
-  background: rgba(17, 24, 39, 0.8);
+  background: rgba(255, 255, 255, 0.7);
   backdrop-filter: blur(12px);
-  border: 1px solid rgba(31, 41, 55, 0.5);
+  border: 1px solid rgba(200, 200, 220, 0.4);
 }
 
 .hero-glow {
   position: absolute;
   width: 420px;
   height: 420px;
-  background: radial-gradient(circle, rgba(99, 102, 241, 0.2) 0%, transparent 70%);
+  background: radial-gradient(circle, rgba(128, 131, 255, 0.15) 0%, transparent 70%);
   filter: blur(44px);
   z-index: -1;
 }

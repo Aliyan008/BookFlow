@@ -9,9 +9,9 @@ const variants = {
   primary:
     'bg-[#c0c1ff] text-[#1000a9] hover:bg-[#8083ff]',
   secondary:
-    'bg-[#1f1f27] text-[#e4e1ed] border border-[#464554] hover:bg-[#292932]',
+    'bg-white text-[#0d0d15] border border-[#d0d0dc] hover:bg-[#f0f0f6]',
   ghost:
-    'bg-transparent text-[#c0c1ff] border border-[#464554] hover:bg-[#1f1f27]',
+    'bg-transparent text-[#8083ff] border border-[#d0d0dc] hover:bg-[#f0f0f6]',
 }
 
 export function Button({ as: Component = 'button', variant = 'primary', className = '', children, ...props }) {

@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react'
 import { motion, useInView } from 'framer-motion'
 import { FadeUp } from '../components/FadeUp'
+import { useTilt } from '../hooks/useTilt'
 import dashboardImage from '../assets/dashboard.jpeg'
 import shopsImage from '../assets/shops.jpeg'
 
@@ -57,21 +58,36 @@ function CountUpStat({ value, prefix = '', suffix = '', label }) {
 
   return (
     <div>
-      <p ref={ref} className="text-3xl font-semibold text-[#c0c1ff]">
+      <p ref={ref} className="text-3xl lg:text-4xl font-bold text-[#c0c1ff]">
         {prefix}
         {formatted}
         {suffix}
       </p>
-      <p className="mt-1 text-xs uppercase tracking-wider text-[#908fa0]">{label}</p>
+      <p className="mt-1 text-xs uppercase tracking-wider text-[#6b6b7e]">{label}</p>
     </div>
+  )
+}
+
+function TiltCard({ children, className }) {
+  const { ref, rotateX, rotateY, onMouseMove, onMouseLeave } = useTilt(8)
+  return (
+    <motion.div
+      ref={ref}
+      onMouseMove={onMouseMove}
+      onMouseLeave={onMouseLeave}
+      style={{ rotateX, rotateY, transformPerspective: 800 }}
+      className={className}
+    >
+      {children}
+    </motion.div>
   )
 }
 
 export function About() {
   return (
-    <div className="dot-grid min-h-[calc(100vh-4rem)] text-[#e4e1ed]">
+    <div className="dot-grid min-h-[calc(100vh-4rem)] text-[#0d0d15]">
       <main className="mx-auto w-full max-w-7xl space-y-14 px-6 pb-16 pt-36">
-        <section className="rounded-2xl border border-[#464554]/50 bg-gradient-to-br from-[#0A0F1E] to-[#111827] p-8">
+        <section className="rounded-2xl border border-[#d0d0dc]/40 bg-white p-8">
           <div className="grid items-center gap-8 md:grid-cols-2">
             <motion.div
               initial={{ opacity: 0, x: -40 }}
@@ -80,13 +96,13 @@ export function About() {
               viewport={{ once: true, amount: 0.2 }}
             >
               <p className="text-xs font-medium uppercase tracking-[0.2em] text-[#4cd7f6]">Our Mission</p>
-              <h1 className="mt-3 text-4xl font-bold">About Bookflow</h1>
-              <p className="mt-4 text-[#c7c4d7]">
+              <h1 className="mt-3 text-3xl lg:text-4xl font-extrabold tracking-tight leading-tight text-[#0d0d15]">About Bookflow</h1>
+              <p className="mt-4 text-base text-[#6b6b7e] leading-relaxed">
                 Bookflow is a field sales and distribution platform built for FMCG teams in traditional trade. It connects sales teams, team leads, distributors and head office on one shared system—so what happens in market shows up in your reports the same day.
               </p>
             </motion.div>
             <motion.div
-              className="glass-card rounded-xl bg-[#0a0f1e] p-2"
+              className="glass-card rounded-xl bg-[#eeeef4] p-2"
               initial={{ opacity: 0, x: 40 }}
               whileInView={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.65, ease: 'easeOut' }}
@@ -99,7 +115,7 @@ export function About() {
 
         <section className="grid items-center gap-10 md:grid-cols-2">
           <motion.div
-            className="glass-card rounded-xl bg-[#0a0f1e] p-2"
+            className="glass-card rounded-xl bg-[#eeeef4] p-2"
             initial={{ opacity: 0, x: -40 }}
             whileInView={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.65, ease: 'easeOut' }}
@@ -113,22 +129,23 @@ export function About() {
             transition={{ duration: 0.65, ease: 'easeOut' }}
             viewport={{ once: true, amount: 0.2 }}
           >
-            <h2 className="text-3xl font-semibold">Built for the way distribution actually runs.</h2>
-            <p className="mt-4 text-[#c7c4d7]">
+            <h2 className="text-2xl lg:text-3xl font-bold tracking-tight leading-snug">Built for the way distribution actually runs.</h2>
+            <p className="mt-4 text-[#4a4a5a]">
               Bookflow is designed around real constraints—busy shops, weak connectivity, distributor dependencies, and the need for clean daily reporting.
             </p>
           </motion.div>
         </section>
 
         <section>
-          <h2 className="mb-6 text-2xl font-semibold">Our Core Principles</h2>
+          <p className="text-xs font-semibold tracking-[0.2em] text-[#6b6b7e] mb-2">WHAT WE STAND FOR</p>
+          <h2 className="mb-6 text-xl font-bold">Our Core Principles</h2>
           <div className="grid gap-5 md:grid-cols-3">
             {principles.map((item, index) => (
-              <FadeUp key={item.title} delay={index * 0.1}>
-                <motion.article whileHover={{ y: -4 }} className="glass-card rounded-xl p-6">
+              <FadeUp key={item.title} delay={index * 0.1} variant="scaleUp">
+                <TiltCard className="glass-card rounded-xl p-6">
                   <h3 className="text-lg font-semibold">{item.title}</h3>
-                  <p className="mt-3 text-sm text-[#c7c4d7]">{item.body}</p>
-                </motion.article>
+                  <p className="mt-2 text-sm text-[#6b6b7e] leading-relaxed">{item.body}</p>
+                </TiltCard>
               </FadeUp>
             ))}
           </div>
