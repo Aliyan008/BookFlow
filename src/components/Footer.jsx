@@ -19,7 +19,7 @@ export function Footer() {
             <NavLink to="/" className="block py-0.5 text-xs text-[#6b6b7e] transition-colors duration-200 hover:text-[#0d0d15]">
               Home
             </NavLink>
-            <NavLink to="/features" className="block py-0.5 text-xs text-[#6b6b7e] transition-colors duration-200 hover:text-[#0d0d15]">
+            <NavLink to="/#features" className="block py-0.5 text-xs text-[#6b6b7e] transition-colors duration-200 hover:text-[#0d0d15]">
               Features
             </NavLink>
             <NavLink to="/about" className="block py-0.5 text-xs text-[#6b6b7e] transition-colors duration-200 hover:text-[#0d0d15]">

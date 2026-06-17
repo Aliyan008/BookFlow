@@ -9,6 +9,7 @@ const navLinkClasses =
 
 export function Navbar() {
   const [isMobileOpen, setIsMobileOpen] = useState(false)
+  const [isPagesOpen, setIsPagesOpen] = useState(false)
 
   useEffect(() => {
     const originalOverflow = document.body.style.overflow
@@ -65,29 +66,51 @@ export function Navbar() {
                   </>
                 )}
               </NavLink>
-              <NavLink
-                to="/features"
-                className={({ isActive }) =>
-                  `${navLinkClasses} ${
-                    isActive
-                      ? 'text-[#0d0d15]'
-                      : ''
-                  }`
-                }
+              <div
+                className="relative"
+                onMouseEnter={() => setIsPagesOpen(true)}
+                onMouseLeave={() => setIsPagesOpen(false)}
               >
-                {({ isActive }) => (
-                  <>
-                    <span>Features</span>
-                    {isActive && (
-                      <motion.span
-                        layoutId="nav-underline"
-                        className="absolute bottom-0 left-0 h-[2px] w-full rounded-full bg-[#c0c1ff]"
-                        transition={{ type: 'spring', stiffness: 500, damping: 35 }}
-                      />
-                    )}
-                  </>
-                )}
-              </NavLink>
+                <button type="button" className={`${navLinkClasses} flex items-center gap-1`}>
+                  <span>Pages</span>
+                  <svg className={`h-3.5 w-3.5 transition-transform duration-200 ${isPagesOpen ? 'rotate-180' : ''}`} viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M6 9l6 6 6-6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+                  </svg>
+                </button>
+                <AnimatePresence>
+                  {isPagesOpen && (
+                    <motion.div
+                      initial={{ opacity: 0, y: 8 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      exit={{ opacity: 0, y: 8 }}
+                      transition={{ duration: 0.18, ease: 'easeOut' }}
+                      className="absolute left-1/2 top-full z-50 mt-6 w-[420px] -translate-x-1/2 rounded-2xl border border-[#d0d0dc]/50 bg-white p-6 shadow-xl"
+                    >
+                      <div className="grid grid-cols-2 gap-6">
+                        <div>
+                          <p className="mb-3 text-[10px] font-bold uppercase tracking-[0.2em] text-[#9999aa]">COMPANY</p>
+                          <div className="flex flex-col gap-2.5">
+                            <NavLink to="/" className="text-sm text-[#6b6b7e] transition-colors duration-200 hover:text-[#0d0d15]">Home</NavLink>
+                            <NavLink to="/#features" className="text-sm text-[#6b6b7e] transition-colors duration-200 hover:text-[#0d0d15]">Features</NavLink>
+                            <NavLink to="/about" className="text-sm text-[#6b6b7e] transition-colors duration-200 hover:text-[#0d0d15]">About</NavLink>
+                            <NavLink to="/contact" className="text-sm text-[#6b6b7e] transition-colors duration-200 hover:text-[#0d0d15]">Contact</NavLink>
+                          </div>
+                        </div>
+                        <div>
+                          <p className="mb-3 text-[10px] font-bold uppercase tracking-[0.2em] text-[#9999aa]">HOW IT WORKS</p>
+                          <div className="flex flex-col gap-2.5">
+                            <NavLink to="/how-it-works#dashboard" className="text-sm text-[#6b6b7e] transition-colors duration-200 hover:text-[#0d0d15]">Sales Dashboard</NavLink>
+                            <NavLink to="/how-it-works#sales" className="text-sm text-[#6b6b7e] transition-colors duration-200 hover:text-[#0d0d15]">Sales</NavLink>
+                            <NavLink to="/how-it-works#attendance" className="text-sm text-[#6b6b7e] transition-colors duration-200 hover:text-[#0d0d15]">Attendance</NavLink>
+                            <NavLink to="/how-it-works#reports" className="text-sm text-[#6b6b7e] transition-colors duration-200 hover:text-[#0d0d15]">Reports</NavLink>
+                            <NavLink to="/how-it-works#stock" className="text-sm text-[#6b6b7e] transition-colors duration-200 hover:text-[#0d0d15]">Stock Control</NavLink>
+                          </div>
+                        </div>
+                      </div>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+              </div>
               <NavLink
                 to="/about"
                 className={({ isActive }) =>
@@ -252,7 +275,7 @@ export function Navbar() {
                     Home
                   </NavLink>
                   <NavLink
-                    to="/features"
+                    to="/how-it-works"
                     onClick={() => setIsMobileOpen(false)}
                     className={({ isActive }) =>
                       `text-2xl font-semibold transition-colors ${
@@ -260,7 +283,7 @@ export function Navbar() {
                       }`
                     }
                   >
-                    Features
+                    How It Works
                   </NavLink>
                   <NavLink
                     to="/about"

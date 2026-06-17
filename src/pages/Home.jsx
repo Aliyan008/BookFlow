@@ -157,7 +157,7 @@ export function Home() {
             transition={{ delay: 0.46, duration: 0.6, ease: 'easeOut' }}
           >
             <Button as={NavLink} to="/contact">Request a Demo</Button>
-            <Button as={NavLink} to="/features" variant="secondary">Learn More</Button>
+            <Button as={NavLink} to="/how-it-works" variant="secondary">Learn More</Button>
           </motion.div>
         </div>
         <motion.div
@@ -206,24 +206,60 @@ export function Home() {
         </div>
       </section>
 
-      <section className="mx-auto w-full max-w-7xl px-6 pb-16">
+      <section id="features" className="mx-auto w-full max-w-7xl px-6 pb-16">
         <FadeUp variant="fadeIn">
           <p className="text-xs font-semibold tracking-[0.2em] text-[#6b6b7e] mb-3 text-center">PLATFORM MODULES</p>
-          <h2 className="text-2xl lg:text-3xl font-bold tracking-tight text-center mb-10">Pro-Grade Execution Modules</h2>
+          <h2 className="text-2xl lg:text-3xl font-bold tracking-tight text-center mb-10">Built for Every Role in the Field</h2>
         </FadeUp>
-        <div className="grid items-stretch gap-4 md:grid-cols-2 lg:grid-cols-4">
+        <div className="space-y-12">
           {[
-            ['OrderBooker Field', 'Precision order taking tools that work even without an internet connection.'],
-            ['Manager', 'Complete oversight of sales targets, routes, and team performance metrics.'],
-            ['Distributor', 'Stock management and delivery tracking for the back-end operation.'],
-            ['Insights', 'Real-time data visualization to make informed distribution decisions.'],
-          ].map(([title, text], index) => (
-            <FadeUp key={title} delay={index * 0.08} variant="scaleUp" className="h-full">
-              <TiltCard className="glass-card rounded-xl p-5 lg:p-6 h-full flex flex-col">
-                <h3 className="text-base font-semibold flex items-center"><span className="inline-block w-1.5 h-1.5 rounded-full bg-[#c0c1ff] mr-2 flex-shrink-0" />{title}</h3>
-                <p className="mt-3 text-sm text-[#6b6b7e] leading-relaxed flex-1">{text}</p>
-              </TiltCard>
-            </FadeUp>
+            {
+              label: 'FOR SALES TEAM',
+              accent: 'text-[#4cd7f6]',
+              items: [
+                ['Offline booking that just works', 'Capture clean orders even with zero signal—sync when you are back online.'],
+                ['Drafts you can finish later', 'Pause an order and complete it when the shop is ready—no retyping.'],
+                ['See order status in the app', 'Reps can quickly see whether an order is pending, completed or cancelled before they talk to the shop again.'],
+              ],
+            },
+            {
+              label: 'FOR MANAGERS',
+              accent: 'text-[#c0c1ff]',
+              items: [
+                ['Use shops saved by your team', 'Team leads can open and work with shops created by their own sales team without recreating customers or sharing logins.'],
+                ['Keep distributor stock aligned', 'Update physical distributor stock during visits so the system matches what is actually in the warehouse.'],
+                ['Check order status for your visits', 'See the status of orders you placed from shops you visited so you only chase what is actually stuck.'],
+              ],
+            },
+            {
+              label: 'FOR DISTRIBUTORS',
+              accent: 'text-[#ffb783]',
+              items: [
+                ['Orders ready to execute', 'Orders saved by the sales team appear instantly in the distributor app, ready to be picked and dispatched.'],
+                ['Inventory visible in the app', 'Distributors see current stock levels in the app so they know what can be promised today.'],
+                ['Record direct distributor sales', 'Log sales made directly from the warehouse so stock and sales stay aligned with what the field sees.'],
+              ],
+            },
+          ].map((row) => (
+            <div key={row.label}>
+              <FadeUp>
+                <div className="mb-6 flex items-center gap-3">
+                  <div className="h-px flex-1 bg-[#d0d0dc]/60" />
+                  <h3 className={`text-[11px] font-bold tracking-[0.25em] ${row.accent}`}>{row.label}</h3>
+                  <div className="h-px flex-1 bg-[#d0d0dc]/60" />
+                </div>
+              </FadeUp>
+              <div className="grid items-stretch gap-4 md:grid-cols-3">
+                {row.items.map(([title, body], index) => (
+                  <FadeUp key={title} delay={index * 0.08} variant="scaleUp" className="h-full">
+                    <TiltCard className="glass-card rounded-xl p-5 lg:p-6 h-full flex flex-col">
+                      <h4 className="text-base font-semibold flex items-center"><span className="inline-block w-1.5 h-1.5 rounded-full bg-[#c0c1ff] mr-2 flex-shrink-0" />{title}</h4>
+                      <p className="mt-3 text-sm text-[#6b6b7e] leading-relaxed flex-1">{body}</p>
+                    </TiltCard>
+                  </FadeUp>
+                ))}
+              </div>
+            </div>
           ))}
         </div>
       </section>
@@ -266,28 +302,28 @@ export function Home() {
                       </div>
                     </motion.div>
                   </AnimatePresence>
-                  <div className="absolute bottom-4 left-1/2 z-10 flex -translate-x-1/2 gap-3">
-                    <button
+                  <motion.button
                       type="button"
                       onClick={goPrev}
                       aria-label="Previous feature"
-                      className="flex h-10 w-10 items-center justify-center rounded-full border border-[#d0d0dc] bg-[#e8e8f0]/90 text-[#0d0d15] transition hover:border-[#c0c1ff]/70 hover:text-[#c0c1ff]"
+                      whileTap={{ scale: 0.92 }}
+                      className="group absolute left-2 top-1/2 z-10 flex h-9 w-9 -translate-y-1/2 items-center justify-center text-[#0d0d15]/40 transition-all duration-300 hover:text-[#8083ff] hover:scale-110 active:scale-95"
                     >
-                      <svg className="h-5 w-5" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <svg className="h-7 w-7" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path d="M15 18l-6-6 6-6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
                       </svg>
-                    </button>
-                    <button
+                    </motion.button>
+                    <motion.button
                       type="button"
                       onClick={goNext}
                       aria-label="Next feature"
-                      className="flex h-10 w-10 items-center justify-center rounded-full border border-[#d0d0dc] bg-[#e8e8f0]/90 text-[#0d0d15] transition hover:border-[#c0c1ff]/70 hover:text-[#c0c1ff]"
+                      whileTap={{ scale: 0.92 }}
+                      className="group absolute right-2 top-1/2 z-10 flex h-9 w-9 -translate-y-1/2 items-center justify-center text-[#0d0d15]/40 transition-all duration-300 hover:text-[#8083ff] hover:scale-110 active:scale-95"
                     >
-                      <svg className="h-5 w-5" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <svg className="h-7 w-7" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path d="M9 18l6-6-6-6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
                       </svg>
-                    </button>
-                  </div>
+                    </motion.button>
                 </div>
                 <div className="mt-4 flex justify-center gap-2">
                   {showcaseFeatures.map((feature) => (
@@ -358,46 +394,32 @@ export function Home() {
                     )}
                   </motion.div>
                 ))}
-                <div className="absolute bottom-4 left-1/2 z-10 flex -translate-x-1/2 gap-3">
-                  <button
+                <motion.button
                     type="button"
                     onClick={goPrev}
                     aria-label="Previous feature"
-                    className="flex h-10 w-10 items-center justify-center rounded-full border border-[#d0d0dc] bg-[#e8e8f0]/90 text-[#0d0d15] transition hover:border-[#c0c1ff]/70 hover:text-[#c0c1ff]"
+                    whileTap={{ scale: 0.92 }}
+                    className="group absolute left-2 top-1/2 z-10 flex h-9 w-9 -translate-y-1/2 items-center justify-center text-[#0d0d15]/40 transition-all duration-300 hover:text-[#8083ff] hover:scale-110 active:scale-95"
                   >
-                    <svg className="h-5 w-5" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <svg className="h-7 w-7" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                       <path d="M15 18l-6-6 6-6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
                     </svg>
-                  </button>
-                  <button
+                  </motion.button>
+                  <motion.button
                     type="button"
                     onClick={goNext}
                     aria-label="Next feature"
-                    className="flex h-10 w-10 items-center justify-center rounded-full border border-[#d0d0dc] bg-[#e8e8f0]/90 text-[#0d0d15] transition hover:border-[#c0c1ff]/70 hover:text-[#c0c1ff]"
+                    whileTap={{ scale: 0.92 }}
+                    className="group absolute right-2 top-1/2 z-10 flex h-9 w-9 -translate-y-1/2 items-center justify-center text-[#0d0d15]/40 transition-all duration-300 hover:text-[#8083ff] hover:scale-110 active:scale-95"
                   >
-                    <svg className="h-5 w-5" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <svg className="h-7 w-7" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                       <path d="M9 18l6-6-6-6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
                     </svg>
-                  </button>
-                </div>
+                  </motion.button>
               </>
             )
           })()}
         </div>
-      </section>
-
-      <section className="px-6 pb-20">
-        <FadeUp>
-          <div className="mx-auto max-w-7xl rounded-[1.8rem] bg-gradient-to-br from-[#8083ff] via-[#494bd6] to-[#0d0096] px-8 py-14 lg:px-16 lg:py-16 text-center shadow-[0_0_80px_rgba(128,131,255,0.2)]">
-            <h2 className="text-3xl lg:text-4xl font-extrabold text-white tracking-tight">Ready to digitize your field sales?</h2>
-            <p className="mx-auto mt-4 max-w-xl text-base text-white/70">
-              Join the leading FMCG brands already optimizing their distribution with Bookflow. Start your transformation today.
-            </p>
-            <div className="mt-6">
-              <Button as={NavLink} to="/contact" className="bg-white text-[#0d0096] hover:bg-[#e1e0ff] font-semibold px-7 py-3 text-sm">Request a Demo</Button>
-            </div>
-          </div>
-        </FadeUp>
       </section>
     </div>
   )
